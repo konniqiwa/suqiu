@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="e7e9215a-f2fb-4c15-8a91-1d8042e449d6" name="Default Changelist" comment="" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FavoritesManager">
+    <favorites_list name="ssm-crud" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="spring-beans.schema" />
+        <option value="Jsp File" />
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="MavenImportPreferences">
+    <option name="generalSettings">
+      <MavenGeneralSettings>
+        <option name="mavenHome" value="$PROJECT_DIR$/../../../apache-maven-3.5.2" />
+        <option name="userSettingsFile" value="D:\develop\apache-maven-3.5.2\conf\settings.xml" />
+      </MavenGeneralSettings>
+    </option>
+    <option name="importingSettings">
+      <MavenImportingSettings>
+        <option name="importAutomatically" value="true" />
+      </MavenImportingSettings>
+    </option>
+  </component>
+  <component name="MavenRunner">
+    <option name="jreName" value="#JAVA_HOME" />
+    <option name="vmOptions" value="-DarchetypeCatalog=internal" />
+  </component>
+  <component name="ProjectId" id="1grxmMgZVYZW1fIg0P2H8NgkjyT" />
+  <component name="ProjectViewState">
+    <option name="showExcludedFiles" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/main/java/com/atguigu/crud/bean" />
+    <property name="project.structure.last.edited" value="Project" />
+    <property name="project.structure.proportion" value="0.0" />
+    <property name="project.structure.side.proportion" value="0.0" />
+    <property name="settings.editor.selected.configurable" value="editor.preferences.fonts.default" />
+  </component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\develop\jetbrains\IdeaProjects\ssm-crud\src\main\webapp\static" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\develop\jetbrains\IdeaProjects\ssm-crud\src\main\java\com\atguigu\crud\bean" />
+      <recent name="D:\develop\jetbrains\IdeaProjects\ssm-crud\src\main\webapp\static\js" />
+    </key>
+    <key name="CreateClassDialog.RecentsKey">
+      <recent name="com.atguigu.crud.service" />
+    </key>
+  </component>
+  <component name="RunAnythingCache">
+    <option name="myCommands">
+      <command value="mvn tomcat:run" />
+      <command value="mvn tomcat7:run" />
+      <command value="mvn clean" />
+    </option>
+  </component>
+  <component name="RunManager" selected="JUnit.MapperTest.testFindAll">
+    <configuration name="MBGTest" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.atguigu.crud.test.MBGTest" />
+      <module name="ssm-crud" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.atguigu.crud.test.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="MapperTest.testCrud" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="ssm-crud" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.atguigu.crud.test.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.atguigu.crud.test" />
+      <option name="MAIN_CLASS_NAME" value="com.atguigu.crud.test.MapperTest" />
+      <option name="METHOD_NAME" value="testCrud" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="MapperTest.testFindAll" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="ssm-crud" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.atguigu.crud.test.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.atguigu.crud.test" />
+      <option name="MAIN_CLASS_NAME" value="com.atguigu.crud.test.MapperTest" />
+      <option name="METHOD_NAME" value="testFindAll" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="MvcTest.testPage" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="ssm-crud" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.atguigu.crud.test.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.atguigu.crud.test" />
+      <option name="MAIN_CLASS_NAME" value="com.atguigu.crud.test.MvcTest" />
+      <option name="METHOD_NAME" value="testPage" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="JUnit.MapperTest.testFindAll" />
+        <item itemvalue="JUnit.MvcTest.testPage" />
+        <item itemvalue="JUnit.MapperTest.testCrud" />
+        <item itemvalue="Application.MBGTest" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="ServiceViewManager">
+    <option name="viewStates">
+      <list>
+        <serviceView>
+          <treeState>
+            <expand />
+            <select />
+          </treeState>
+        </serviceView>
+      </list>
+    </option>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="1" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="361" y="71" key="#Inspections" timestamp="1599051073037">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="361" y="71" key="#Inspections/0.0.1536.824@0.0.1536.824" timestamp="1599051073037" />
+    <state x="574" y="96" key="#com.intellij.ide.util.MemberChooser" timestamp="1599307789002">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="574" y="96" key="#com.intellij.ide.util.MemberChooser/0.0.1536.824@0.0.1536.824" timestamp="1599307789002" />
+    <state width="1493" height="130" key="GridCell.Tab.0.bottom" timestamp="1599744683342">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state width="1493" height="130" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1599744683342" />
+    <state width="1493" height="130" key="GridCell.Tab.0.center" timestamp="1599744683341">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state width="1493" height="130" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1599744683341" />
+    <state width="1493" height="130" key="GridCell.Tab.0.left" timestamp="1599744683341">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state width="1493" height="130" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1599744683341" />
+    <state width="1493" height="130" key="GridCell.Tab.0.right" timestamp="1599744683342">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state width="1493" height="130" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1599744683342" />
+    <state x="249" y="0" key="SettingsEditor" timestamp="1606229550730">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="249" y="0" key="SettingsEditor/0.0.1536.824@0.0.1536.824" timestamp="1606229550730" />
+    <state x="425" y="187" width="672" height="677" key="run.anything.popup" timestamp="1599735954284">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="425" y="187" width="672" height="677" key="run.anything.popup/0.0.1536.824@0.0.1536.824" timestamp="1599735954284" />
+    <state x="431" y="145" width="672" height="678" key="search.everywhere.popup" timestamp="1598966681593">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="431" y="145" width="672" height="678" key="search.everywhere.popup/0.0.1536.824@0.0.1536.824" timestamp="1598966681593" />
+  </component>
+</project>
