@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="Encoding">
+    <file url="file://$PROJECT_DIR$/suqiu-parent/suqiu-common-db/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/suqiu-parent/suqiu-common/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/suqiu-parent/suqiu-eureka/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/suqiu-parent/suqiu-gateway/suqiu-gateway-web/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/suqiu-parent/suqiu-service-api/suqiu-service-content-api/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/suqiu-parent/suqiu-service-api/suqiu-service-goods-api/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/suqiu-parent/suqiu-service-api/suqiu-service-order-api/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/suqiu-parent/suqiu-service-api/suqiu-service-search-api/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/suqiu-parent/suqiu-service-api/suqiu-service-seckill-api/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/suqiu-parent/suqiu-service-api/suqiu-service-user-api/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/suqiu-parent/suqiu-service-api/suqiu-web-item-api/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/suqiu-parent/suqiu-service/suqiu-service-canal/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/suqiu-parent/suqiu-service/suqiu-service-content/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/suqiu-parent/suqiu-service/suqiu-service-file/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/suqiu-parent/suqiu-service/suqiu-service-goods/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/suqiu-parent/suqiu-service/suqiu-service-order/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/suqiu-parent/suqiu-service/suqiu-service-pay/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/suqiu-parent/suqiu-service/suqiu-service-search/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/suqiu-parent/suqiu-service/suqiu-service-seckill/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/suqiu-parent/suqiu-service/suqiu-service-user/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/suqiu-parent/suqiu-user-oauth/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/suqiu-parent/suqiu-web/suqiu-web-item/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/suqiu-parent/suqiu-web/suqiu-web-search/src/main/java" charset="UTF-8" />
+  </component>
+</project>
