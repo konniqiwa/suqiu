@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="suqiu-service-order" />
+        <module name="suqiu-service-seckill-api" />
+        <module name="suqiu-service-search-api" />
+        <module name="suqiu-web-item" />
+        <module name="suqiu-service-goods" />
+        <module name="suqiu-service-content" />
+        <module name="suqiu-service-canal" />
+        <module name="suqiu-common" />
+        <module name="suqiu-service-user-api" />
+        <module name="suqiu-service-seckill" />
+        <module name="suqiu-service-goods-api" />
+        <module name="suqiu-service-search" />
+        <module name="suqiu-user-oauth" />
+        <module name="code-template" />
+        <module name="suqiu-service-file" />
+        <module name="suqiu-web-item-api" />
+        <module name="suqiu-web-search" />
+        <module name="suqiu-service-pay" />
+        <module name="suqiu-eureka" />
+        <module name="suqiu-gateway-web" />
+        <module name="suqiu-common-db" />
+        <module name="suqiu-service-order-api" />
+        <module name="suqiu-service-content-api" />
+        <module name="suqiu-service-user" />
+      </profile>
+    </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="code-template" target="1.9" />
+      <module name="suqiu-common" target="1.9" />
+      <module name="suqiu-common-db" target="1.9" />
+      <module name="suqiu-eureka" target="1.9" />
+      <module name="suqiu-gateway" target="1.9" />
+      <module name="suqiu-gateway-web" target="1.9" />
+      <module name="suqiu-parent" target="1.9" />
+      <module name="suqiu-service" target="1.9" />
+      <module name="suqiu-service-api" target="1.9" />
+      <module name="suqiu-service-canal" target="1.9" />
+      <module name="suqiu-service-content" target="1.9" />
+      <module name="suqiu-service-content-api" target="1.9" />
+      <module name="suqiu-service-file" target="1.9" />
+      <module name="suqiu-service-goods" target="1.9" />
+      <module name="suqiu-service-goods-api" target="1.9" />
+      <module name="suqiu-service-order" target="1.9" />
+      <module name="suqiu-service-order-api" target="1.9" />
+      <module name="suqiu-service-pay" target="1.9" />
+      <module name="suqiu-service-search" target="1.9" />
+      <module name="suqiu-service-search-api" target="1.9" />
+      <module name="suqiu-service-seckill" target="1.9" />
+      <module name="suqiu-service-seckill-api" target="1.9" />
+      <module name="suqiu-service-user" target="1.9" />
+      <module name="suqiu-service-user-api" target="1.9" />
+      <module name="suqiu-user-oauth" target="1.9" />
+      <module name="suqiu-web" target="1.9" />
+      <module name="suqiu-web-item" target="1.9" />
+      <module name="suqiu-web-item-api" target="1.9" />
+      <module name="suqiu-web-search" target="1.9" />
+    </bytecodeTargetLevel>
+  </component>
+  <component name="JavacSettings">
+    <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="suqiu-common" options="-parameters" />
+      <module name="suqiu-common-db" options="-parameters" />
+      <module name="suqiu-eureka" options="-parameters" />
+      <module name="suqiu-gateway-web" options="-parameters" />
+      <module name="suqiu-service-canal" options="-parameters" />
+      <module name="suqiu-service-content" options="-parameters" />
+      <module name="suqiu-service-content-api" options="-parameters" />
+      <module name="suqiu-service-file" options="-parameters" />
+      <module name="suqiu-service-goods" options="-parameters" />
+      <module name="suqiu-service-goods-api" options="-parameters" />
+      <module name="suqiu-service-order" options="-parameters" />
+      <module name="suqiu-service-order-api" options="-parameters" />
+      <module name="suqiu-service-pay" options="-parameters" />
+      <module name="suqiu-service-search" options="-parameters" />
+      <module name="suqiu-service-search-api" options="-parameters" />
+      <module name="suqiu-service-seckill" options="-parameters" />
+      <module name="suqiu-service-seckill-api" options="-parameters" />
+      <module name="suqiu-service-user" options="-parameters" />
+      <module name="suqiu-service-user-api" options="-parameters" />
+      <module name="suqiu-user-oauth" options="-parameters" />
+      <module name="suqiu-web-item" options="-parameters" />
+      <module name="suqiu-web-item-api" options="-parameters" />
+      <module name="suqiu-web-search" options="-parameters" />
+    </option>
+  </component>
+</project>

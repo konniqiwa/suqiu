@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/suqiu-parent/code-template/code-template.iml" filepath="$PROJECT_DIR$/suqiu-parent/code-template/code-template.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/suqiu.iml" filepath="$PROJECT_DIR$/.idea/suqiu.iml" />
+      <module fileurl="file://$PROJECT_DIR$/suqiu-parent/suqiu-common/suqiu-common.iml" filepath="$PROJECT_DIR$/suqiu-parent/suqiu-common/suqiu-common.iml" />
+      <module fileurl="file://$PROJECT_DIR$/suqiu-parent/suqiu-common-db/suqiu-common-db.iml" filepath="$PROJECT_DIR$/suqiu-parent/suqiu-common-db/suqiu-common-db.iml" />
+      <module fileurl="file://$PROJECT_DIR$/suqiu-parent/suqiu-eureka/suqiu-eureka.iml" filepath="$PROJECT_DIR$/suqiu-parent/suqiu-eureka/suqiu-eureka.iml" />
+      <module fileurl="file://$PROJECT_DIR$/suqiu-parent/suqiu-gateway/suqiu-gateway.iml" filepath="$PROJECT_DIR$/suqiu-parent/suqiu-gateway/suqiu-gateway.iml" />
+      <module fileurl="file://$PROJECT_DIR$/suqiu-parent/suqiu-gateway/suqiu-gateway-web/suqiu-gateway-web.iml" filepath="$PROJECT_DIR$/suqiu-parent/suqiu-gateway/suqiu-gateway-web/suqiu-gateway-web.iml" />
+      <module fileurl="file://$PROJECT_DIR$/suqiu-parent/suqiu-parent.iml" filepath="$PROJECT_DIR$/suqiu-parent/suqiu-parent.iml" />
+      <module fileurl="file://$PROJECT_DIR$/suqiu-parent/suqiu-service/suqiu-service.iml" filepath="$PROJECT_DIR$/suqiu-parent/suqiu-service/suqiu-service.iml" />
+      <module fileurl="file://$PROJECT_DIR$/suqiu-parent/suqiu-service-api/suqiu-service-api.iml" filepath="$PROJECT_DIR$/suqiu-parent/suqiu-service-api/suqiu-service-api.iml" />
+      <module fileurl="file://$PROJECT_DIR$/suqiu-parent/suqiu-service/suqiu-service-canal/suqiu-service-canal.iml" filepath="$PROJECT_DIR$/suqiu-parent/suqiu-service/suqiu-service-canal/suqiu-service-canal.iml" />
+      <module fileurl="file://$PROJECT_DIR$/suqiu-parent/suqiu-service/suqiu-service-content/suqiu-service-content.iml" filepath="$PROJECT_DIR$/suqiu-parent/suqiu-service/suqiu-service-content/suqiu-service-content.iml" />
+      <module fileurl="file://$PROJECT_DIR$/suqiu-parent/suqiu-service-api/suqiu-service-content-api/suqiu-service-content-api.iml" filepath="$PROJECT_DIR$/suqiu-parent/suqiu-service-api/suqiu-service-content-api/suqiu-service-content-api.iml" />
+      <module fileurl="file://$PROJECT_DIR$/suqiu-parent/suqiu-service/suqiu-service-file/suqiu-service-file.iml" filepath="$PROJECT_DIR$/suqiu-parent/suqiu-service/suqiu-service-file/suqiu-service-file.iml" />
+      <module fileurl="file://$PROJECT_DIR$/suqiu-parent/suqiu-service/suqiu-service-goods/suqiu-service-goods.iml" filepath="$PROJECT_DIR$/suqiu-parent/suqiu-service/suqiu-service-goods/suqiu-service-goods.iml" />
+      <module fileurl="file://$PROJECT_DIR$/suqiu-parent/suqiu-service-api/suqiu-service-goods-api/suqiu-service-goods-api.iml" filepath="$PROJECT_DIR$/suqiu-parent/suqiu-service-api/suqiu-service-goods-api/suqiu-service-goods-api.iml" />
+      <module fileurl="file://$PROJECT_DIR$/suqiu-parent/suqiu-service/suqiu-service-order/suqiu-service-order.iml" filepath="$PROJECT_DIR$/suqiu-parent/suqiu-service/suqiu-service-order/suqiu-service-order.iml" />
+      <module fileurl="file://$PROJECT_DIR$/suqiu-parent/suqiu-service-api/suqiu-service-order-api/suqiu-service-order-api.iml" filepath="$PROJECT_DIR$/suqiu-parent/suqiu-service-api/suqiu-service-order-api/suqiu-service-order-api.iml" />
+      <module fileurl="file://$PROJECT_DIR$/suqiu-parent/suqiu-service/suqiu-service-pay/suqiu-service-pay.iml" filepath="$PROJECT_DIR$/suqiu-parent/suqiu-service/suqiu-service-pay/suqiu-service-pay.iml" />
+      <module fileurl="file://$PROJECT_DIR$/suqiu-parent/suqiu-service/suqiu-service-search/suqiu-service-search.iml" filepath="$PROJECT_DIR$/suqiu-parent/suqiu-service/suqiu-service-search/suqiu-service-search.iml" />
+      <module fileurl="file://$PROJECT_DIR$/suqiu-parent/suqiu-service-api/suqiu-service-search-api/suqiu-service-search-api.iml" filepath="$PROJECT_DIR$/suqiu-parent/suqiu-service-api/suqiu-service-search-api/suqiu-service-search-api.iml" />
+      <module fileurl="file://$PROJECT_DIR$/suqiu-parent/suqiu-service/suqiu-service-seckill/suqiu-service-seckill.iml" filepath="$PROJECT_DIR$/suqiu-parent/suqiu-service/suqiu-service-seckill/suqiu-service-seckill.iml" />
+      <module fileurl="file://$PROJECT_DIR$/suqiu-parent/suqiu-service-api/suqiu-service-seckill-api/suqiu-service-seckill-api.iml" filepath="$PROJECT_DIR$/suqiu-parent/suqiu-service-api/suqiu-service-seckill-api/suqiu-service-seckill-api.iml" />
+      <module fileurl="file://$PROJECT_DIR$/suqiu-parent/suqiu-service/suqiu-service-user/suqiu-service-user.iml" filepath="$PROJECT_DIR$/suqiu-parent/suqiu-service/suqiu-service-user/suqiu-service-user.iml" />
+      <module fileurl="file://$PROJECT_DIR$/suqiu-parent/suqiu-service-api/suqiu-service-user-api/suqiu-service-user-api.iml" filepath="$PROJECT_DIR$/suqiu-parent/suqiu-service-api/suqiu-service-user-api/suqiu-service-user-api.iml" />
+      <module fileurl="file://$PROJECT_DIR$/suqiu-parent/suqiu-user-oauth/suqiu-user-oauth.iml" filepath="$PROJECT_DIR$/suqiu-parent/suqiu-user-oauth/suqiu-user-oauth.iml" />
+      <module fileurl="file://$PROJECT_DIR$/suqiu-parent/suqiu-web/suqiu-web.iml" filepath="$PROJECT_DIR$/suqiu-parent/suqiu-web/suqiu-web.iml" />
+      <module fileurl="file://$PROJECT_DIR$/suqiu-parent/suqiu-web/suqiu-web-item/suqiu-web-item.iml" filepath="$PROJECT_DIR$/suqiu-parent/suqiu-web/suqiu-web-item/suqiu-web-item.iml" />
+      <module fileurl="file://$PROJECT_DIR$/suqiu-parent/suqiu-service-api/suqiu-web-item-api/suqiu-web-item-api.iml" filepath="$PROJECT_DIR$/suqiu-parent/suqiu-service-api/suqiu-web-item-api/suqiu-web-item-api.iml" />
+      <module fileurl="file://$PROJECT_DIR$/suqiu-parent/suqiu-web/suqiu-web-search/suqiu-web-search.iml" filepath="$PROJECT_DIR$/suqiu-parent/suqiu-web/suqiu-web-search/suqiu-web-search.iml" />
+    </modules>
+  </component>
+</project>
