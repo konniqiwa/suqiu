@@ -8,14 +8,13 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.web.client.RestTemplate;
 import tk.mybatis.spring.annotation.MapperScan;
 
-/*****
- * @Author: www.itheima
- * @Date: 2019/7/6 8:01
- * @Description: com.changgou
- ****/
+
+/**
+ * @author 素秋
+ */
 @SpringBootApplication
 @EnableDiscoveryClient
-@MapperScan(basePackages = "com.changgou.auth.dao")
+@MapperScan(basePackages = "com.suqiu.auth.dao")
 @EnableFeignClients(basePackages = {"com.suqiu.user.feign"})
 public class OAuthApplication {
 

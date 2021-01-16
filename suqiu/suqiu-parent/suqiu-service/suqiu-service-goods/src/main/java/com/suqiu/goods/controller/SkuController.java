@@ -6,6 +6,8 @@ import entity.Result;
 import entity.StatusCode;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Map;
@@ -16,6 +18,7 @@ import java.util.Map;
  * @Date 2019/6/14 0:18
  *****/
 
+@RefreshScope
 @RestController
 @RequestMapping("/sku")
 @CrossOrigin
@@ -23,6 +26,18 @@ public class SkuController {
 
     @Autowired
     private SkuService skuService;
+
+    @Value("${good.user.name}")
+    private String name;
+
+    @Value("${good.user.age}")
+    private Integer age;
+
+    @RequestMapping("/test")
+    public Result test() {
+
+        return new Result(true,StatusCode.OK,"测试配置文件成功..",this.name);
+    }
 
     /**
      * 商品库存递减

@@ -8,27 +8,11 @@ import org.springframework.context.annotation.Bean;
 import tk.mybatis.spring.annotation.MapperScan;
 
 /**
- * 描述
- *
- * @author 三国的包子
- * @version 1.0
- * @package com.changgou *
- * @since 1.0
+ * @author 素秋
  */
 @SpringBootApplication
-
 @EnableEurekaClient
-
-//注意 要使用通用的mapper的组件扫描
-@MapperScan(basePackages = {"com.changgou.goods.dao"})
-// mapper接口继承了通用的mapper
-//默认提供一些方法:
-//   insert
-//   update
-
-//  delete
-
-//  select
+@MapperScan(basePackages = {"com.suqiu.goods.dao"})
 public class GoodsApplication {
 
     public static void main(String[] args) {
@@ -36,6 +20,9 @@ public class GoodsApplication {
     }
 
     @Bean
-    public IdWorker idWorker(){
-        return new IdWorker(0,1) ;}
+    public IdWorker idWorker() {
+        return new IdWorker(0, 1);
+    }
+
+
 }

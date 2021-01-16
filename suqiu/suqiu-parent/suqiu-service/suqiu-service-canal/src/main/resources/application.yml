@@ -1,18 +1,24 @@
 server:
   port: 18083
 spring:
+  autoconfigure:
+    exclude: org.springframework.cloud.netflix.eureka.EurekaClientAutoConfiguration
   application:
     name: canal
   redis:
     host: 192.168.1.132
     port: 6379
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 127.0.0.1:8848
 
-eureka:
-  client:
-    service-url:
-      defaultZone: http://127.0.0.1:7001/eureka
-  instance:
-    prefer-ip-address: true
+#eureka:
+#  client:
+#    service-url:
+#      defaultZone: http://127.0.0.1:7001/eureka
+#  instance:
+#    prefer-ip-address: true
 feign:
   hystrix:
     enabled: true

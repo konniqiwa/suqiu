@@ -16,6 +16,7 @@
         <module>suqiu-service-api</module>
         <module>suqiu-web</module>
         <module>suqiu-user-oauth</module>
+        <module>renren-fast</module>
     </modules>
     <packaging>pom</packaging>
     <description>
