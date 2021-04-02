@@ -114,14 +114,15 @@ public class CategoryController {
     }
 
     /***
-     * 查询Category全部数据
+     * 查询Category全部数据，树形结构（递归获取子菜单）
      * @return
      */
     @GetMapping
     public Result<List<Category>> findAll(){
         //调用CategoryService实现查询所有Category
-        List<Category> list = categoryService.findAll();
-        return new Result<List<Category>>(true, StatusCode.OK,"查询成功",list) ;
+//        List<Category> list = categoryService.findAll();
+        List<Category> listTree = categoryService.findAllTree();
+        return new Result<List<Category>>(true, StatusCode.OK,"查询成功",listTree) ;
     }
 
     /**

@@ -2,6 +2,7 @@ package com.suqiu.goods.pojo;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.List;
 
 /****
  * @Author:admin
@@ -37,7 +38,15 @@ public class Category implements Serializable{
     @Column(name = "template_id")
 	private Integer templateId;//模板ID
 
+	private List<Category> children;
 
+	public List<Category> getChildren() {
+		return children;
+	}
+
+	public void setChildren(List<Category> children) {
+		this.children = children;
+	}
 
 	//get方法
 	public Integer getId() {

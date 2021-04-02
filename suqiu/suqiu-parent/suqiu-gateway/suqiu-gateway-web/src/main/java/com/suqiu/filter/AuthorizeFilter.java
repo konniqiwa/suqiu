@@ -1,3 +1,4 @@
+/*
 package com.suqiu.filter;
 
 import org.springframework.cloud.gateway.filter.GatewayFilterChain;
@@ -78,3 +79,4 @@ public class AuthorizeFilter implements GlobalFilter, Ordered {
         return 0;
     }
 }
+*/

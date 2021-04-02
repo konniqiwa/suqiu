@@ -9,8 +9,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 import tk.mybatis.mapper.entity.Example;
 import java.util.List;
+import java.util.stream.Collectors;
+
 /****
- * @Author:admin
+ * @Author:suqiu
  * @Description:Category业务层接口实现类
  * @Date 2019/6/14 0:16
  *****/
@@ -167,5 +169,36 @@ public class CategoryServiceImpl implements CategoryService {
         List<Category> categoryList = categoryMapper.select(record);
 
         return categoryList;
+    }
+
+    /**
+     * 查询所有分类，树形结构
+     * @return
+     */
+    @Override
+    public List<Category> findAllTree() {
+        List<Category> all = categoryMapper.selectAll();
+        List<Category> collect = categoryMapper.selectAll().stream().filter((category) -> {
+            return category.getParentId() == 0;
+        }).map((menu) -> {
+            menu.setChildren(findChildren(menu, all));
+            return menu;
+        }).collect(Collectors.toList());
+        return collect;
+    }
+
+    /**
+     * 查询改分类下的子分类
+     * @param root
+     * @param all
+     * @return
+     */
+    public List<Category> findChildren(Category root, List<Category> all) {
+        List<Category> collect = all.stream().filter(category -> category.getParentId().equals(root.getId()))
+                .map((menu) -> {
+                    menu.setChildren(findChildren(menu, all));
+                    return menu;
+                }).collect(Collectors.toList());
+        return collect;
     }
 }

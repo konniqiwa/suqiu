@@ -20,7 +20,6 @@ import org.springframework.stereotype.Service;
 import java.util.Map;
 
 
-@SuppressWarnings("AlibabaClassMustHaveAuthor")
 @Service("sysOssService")
 public class SysOssServiceImpl extends ServiceImpl<SysOssDao, SysOssEntity> implements SysOssService {
 

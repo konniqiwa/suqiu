@@ -66,4 +66,10 @@ public interface CategoryService {
 
 
     List<Category> findByParentId(Integer pid);
+
+    /**
+     * 查询所有分类,树形结构
+     * @return
+     */
+    List<Category> findAllTree();
 }

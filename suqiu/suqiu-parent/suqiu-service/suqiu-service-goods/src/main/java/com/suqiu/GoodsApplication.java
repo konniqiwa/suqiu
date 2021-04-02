@@ -3,7 +3,7 @@ package com.suqiu;
 import entity.IdWorker;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
+import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.context.annotation.Bean;
 import tk.mybatis.spring.annotation.MapperScan;
 
@@ -11,7 +11,7 @@ import tk.mybatis.spring.annotation.MapperScan;
  * @author 素秋
  */
 @SpringBootApplication
-@EnableEurekaClient
+@EnableDiscoveryClient
 @MapperScan(basePackages = {"com.suqiu.goods.dao"})
 public class GoodsApplication {
 

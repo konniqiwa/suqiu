@@ -24,7 +24,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-@SuppressWarnings("ALL")
 @Service("sysMenuService")
 public class SysMenuServiceImpl extends ServiceImpl<SysMenuDao, SysMenuEntity> implements SysMenuService {
 	@Autowired
