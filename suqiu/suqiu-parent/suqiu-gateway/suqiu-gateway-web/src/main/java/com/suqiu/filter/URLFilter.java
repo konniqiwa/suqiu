@@ -1,5 +1,8 @@
 package com.suqiu.filter;
 
+/**
+ * @author suqiu
+ */
 public class URLFilter {
 
     /**
