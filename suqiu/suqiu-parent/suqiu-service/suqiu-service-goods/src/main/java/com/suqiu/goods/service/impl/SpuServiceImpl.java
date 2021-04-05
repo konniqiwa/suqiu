@@ -9,6 +9,7 @@ import com.suqiu.goods.pojo.*;
 import com.suqiu.goods.service.SpuService;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.suqiu.model.SpuListModel;
 import entity.IdWorker;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -100,7 +101,7 @@ public class SpuServiceImpl implements SpuService {
     public Example createExample(Spu spu) {
         Example example = new Example(Spu.class);
         Example.Criteria criteria = example.createCriteria();
-        criteria.andEqualTo("isDelete",0);//只找 没有被删除的
+        criteria.andEqualTo("isDelete", 0);//只找 没有被删除的
         if (spu != null) {
             // 主键
             if (!StringUtils.isEmpty(spu.getId())) {
@@ -202,7 +203,7 @@ public class SpuServiceImpl implements SpuService {
     @Override
     public void delete(Long id) {
         Spu spu = spuMapper.selectByPrimaryKey(id);
-        if(spu==null){
+        if (spu == null) {
             throw new RuntimeException("商品不存在");
         }
         if (!spu.getIsDelete().equals("1")) {
@@ -358,7 +359,7 @@ public class SpuServiceImpl implements SpuService {
             throw new RuntimeException("商品不存在或者已经删除");
         }
 
-        if(!spu.getStatus().equals("1") || !spu.getIsMarketable().equals("1")){
+        if (!spu.getStatus().equals("1") || !spu.getIsMarketable().equals("1")) {
             throw new RuntimeException("商品必须要审核或者商品必须要是上架的状态");
         }
 
@@ -371,11 +372,11 @@ public class SpuServiceImpl implements SpuService {
     public void logicDeleteSpu(Long id) {
         // update set is_delete=1 where id =? and is_delete=0
         Spu spu = spuMapper.selectByPrimaryKey(id);
-        if(spu==null){
+        if (spu == null) {
             throw new RuntimeException("商品不存在");
         }
 
-        if(spu.getIsMarketable().equals("1")){
+        if (spu.getIsMarketable().equals("1")) {
             throw new RuntimeException("商品还没下架,不能删除");
         }
         spu.setIsDelete("1");
@@ -387,17 +388,49 @@ public class SpuServiceImpl implements SpuService {
     public void restoreSpu(Long id) {
         // update set is_delete=0 where id =? and is_delete=1
         Spu spu = spuMapper.selectByPrimaryKey(id);
-        if(spu==null){
+        if (spu == null) {
             throw new RuntimeException("商品不存在");
         }
         Spu data = new Spu();
         data.setIsDelete("0");//恢复
         Example exmaple = new Example(Spu.class);
         Example.Criteria criteria = exmaple.createCriteria();
-        criteria.andEqualTo("id",id);//where id =1
-        criteria.andEqualTo("isDelete","1");
-        spuMapper.updateByExampleSelective(data,exmaple);
+        criteria.andEqualTo("id", id);//where id =1
+        criteria.andEqualTo("isDelete", "1");
+        spuMapper.updateByExampleSelective(data, exmaple);
 // spuMapper.updateByPrimaryKeySelective(spu);//根据主键来进行更新  update set name=? where id=?
+    }
+
+    @Override
+    public List<Spu> findBySearch(SpuListModel reqModel) {
+        if (reqModel.getPageNum() != null && reqModel.getPageSize() != null) {
+            PageHelper.startPage(reqModel.getPageNum(), reqModel.getPageSize());
+        }
+        if (StringUtils.isEmpty(reqModel)) {
+            return spuMapper.selectAll();
+        }
+        Example exmaple = new Example(Spu.class);
+        Example.Criteria criteria = exmaple.createCriteria();
+        if (reqModel.getKeyword() != null) {
+            criteria.andLike("name", String.format("%%%s%%", reqModel.getKeyword()));
+        }
+        if (reqModel.getProductSn() != null) {
+            criteria.andEqualTo("sn", reqModel.getProductSn());
+        }
+        if (reqModel.getProductCategoryId() != null) {
+            criteria.andEqualTo("category3Id", reqModel.getProductCategoryId());
+        }
+        if (reqModel.getBrandId() != null) {
+            criteria.andEqualTo("brandId", reqModel.getBrandId());
+        }
+        if (reqModel.getPublishStatus() != null) {
+            criteria.andEqualTo("isMarketable", reqModel.getPublishStatus());
+        }
+        if (reqModel.getVerifyStatus() != null) {
+            criteria.andEqualTo("status", reqModel.getVerifyStatus());
+        }
+
+        return spuMapper.selectByExample(exmaple);
     }
 
 

@@ -1,12 +1,16 @@
 package com.suqiu.goods.controller;
+
 import com.suqiu.goods.pojo.Brand;
 import com.suqiu.goods.service.BrandService;
 import com.github.pagehelper.PageInfo;
+import com.suqiu.model.BrandListModel;
+import entity.JsonDTO;
 import entity.Result;
 import entity.StatusCode;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
 import java.util.List;
 
 /****
@@ -17,7 +21,6 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/brand")
-@CrossOrigin
 public class BrandController {
 
     @Autowired
@@ -30,11 +33,11 @@ public class BrandController {
      * @param size
      * @return
      */
-    @PostMapping(value = "/search/{page}/{size}" )
-    public Result<PageInfo> findPage(@RequestBody(required = false)  Brand brand, @PathVariable  int page, @PathVariable  int size){
+    @PostMapping(value = "/search/{page}/{size}")
+    public Result<PageInfo> findPage(@RequestBody(required = false) Brand brand, @PathVariable int page, @PathVariable int size) {
         //调用BrandService实现分页条件查询Brand
         PageInfo<Brand> pageInfo = brandService.findPage(brand, page, size);
-        return new Result(true,StatusCode.OK,"查询成功",pageInfo);
+        return new Result(true, StatusCode.OK, "查询成功", pageInfo);
     }
 
     /***
@@ -43,11 +46,11 @@ public class BrandController {
      * @param size:每页显示多少条
      * @return
      */
-    @GetMapping(value = "/search/{page}/{size}" )
-    public Result<PageInfo> findPage(@PathVariable  int page, @PathVariable  int size){
+    @GetMapping(value = "/search/{page}/{size}")
+    public Result<PageInfo> findPage(@PathVariable int page, @PathVariable int size) {
         //调用BrandService实现分页查询Brand
         PageInfo<Brand> pageInfo = brandService.findPage(page, size);
-        return new Result<PageInfo>(true,StatusCode.OK,"查询成功",pageInfo);
+        return new Result<PageInfo>(true, StatusCode.OK, "查询成功", pageInfo);
     }
 
     /***
@@ -55,11 +58,11 @@ public class BrandController {
      * @param brand
      * @return
      */
-    @PostMapping(value = "/search" )
-    public Result<List<Brand>> findList(@RequestBody(required = false)  Brand brand){
+    @PostMapping(value = "/search")
+    public Result<List<Brand>> findList(@RequestBody(required = false) Brand brand) {
         //调用BrandService实现条件查询Brand
         List<Brand> list = brandService.findList(brand);
-        return new Result<List<Brand>>(true,StatusCode.OK,"查询成功",list);
+        return new Result<List<Brand>>(true, StatusCode.OK, "查询成功", list);
     }
 
     /***
@@ -67,11 +70,11 @@ public class BrandController {
      * @param id
      * @return
      */
-    @DeleteMapping(value = "/{id}" )
-    public Result delete(@PathVariable Integer id){
+    @DeleteMapping(value = "/{id}")
+    public Result delete(@PathVariable Integer id) {
         //调用BrandService实现根据主键删除
         brandService.delete(id);
-        return new Result(true,StatusCode.OK,"删除成功");
+        return new Result(true, StatusCode.OK, "删除成功");
     }
 
     /***
@@ -80,13 +83,13 @@ public class BrandController {
      * @param id
      * @return
      */
-    @PutMapping(value="/{id}")
-    public Result update(@RequestBody  Brand brand,@PathVariable Integer id){
+    @PutMapping(value = "/{id}")
+    public Result update(@RequestBody Brand brand, @PathVariable Integer id) {
         //设置主键值
         brand.setId(id);
         //调用BrandService实现修改Brand
         brandService.update(brand);
-        return new Result(true,StatusCode.OK,"修改成功");
+        return new Result(true, StatusCode.OK, "修改成功");
     }
 
     /***
@@ -95,10 +98,10 @@ public class BrandController {
      * @return
      */
     @PostMapping
-    public Result add(@RequestBody   Brand brand){
+    public Result add(@RequestBody Brand brand) {
         //调用BrandService实现添加Brand
         brandService.add(brand);
-        return new Result(true,StatusCode.OK,"添加成功");
+        return new Result(true, StatusCode.OK, "添加成功");
     }
 
     /***
@@ -107,40 +110,33 @@ public class BrandController {
      * @return
      */
     @GetMapping("/{id}")
-    public Result<Brand> findById(@PathVariable Integer id){
+    public Result<Brand> findById(@PathVariable Integer id) {
         //调用BrandService实现根据主键查询Brand
         Brand brand = brandService.findById(id);
-        return new Result<Brand>(true,StatusCode.OK,"查询成功",brand);
+        return new Result<Brand>(true, StatusCode.OK, "查询成功", brand);
     }
 
     /***
      * 查询Brand全部数据
      * @return
      */
-    @GetMapping
-    public Result<List<Brand>> findAll(){
-        try {
-            System.out.println("aaaaa=====");
-            Thread.sleep(3000);
-            System.out.println("bbbb=====");
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+    @PostMapping("/list")
+    public JsonDTO findAll(@RequestBody BrandListModel reqModel) {
         //调用BrandService实现查询所有Brand
-        List<Brand> list = brandService.findAll();
-        return new Result<List<Brand>>(true, StatusCode.OK,"查询成功",list) ;
+        List<Brand> list = brandService.findAllBrand(reqModel);
+        PageInfo pageInfo = new PageInfo(list);
+        long total = pageInfo.getTotal();
+        return JsonDTO.createInstance().setStatus(JsonDTO.SUCCESS).put("list", list).put("total", total);
     }
 
-
     /**
-     *
      * @return
      */
     @GetMapping("/category/{id}")
-    public Result<List<Brand>> findBrandByCategory(@PathVariable(name="id") Integer id){
-       List<Brand> brandList = brandService.findByCategory(id);
+    public Result<List<Brand>> findBrandByCategory(@PathVariable(name = "id") Integer id) {
+        List<Brand> brandList = brandService.findByCategory(id);
 
-       return new Result<List<Brand>>(true,StatusCode.OK,"查询品牌列表成功",brandList);
+        return new Result<List<Brand>>(true, StatusCode.OK, "查询品牌列表成功", brandList);
 
     }
 }

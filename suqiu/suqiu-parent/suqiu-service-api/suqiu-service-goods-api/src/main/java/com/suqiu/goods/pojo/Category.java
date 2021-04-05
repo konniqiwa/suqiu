@@ -38,6 +38,17 @@ public class Category implements Serializable{
     @Column(name = "template_id")
 	private Integer templateId;//模板ID
 
+	@Column(name = "level")
+	private Integer level;  //分类等级
+
+	public Integer getLevel() {
+		return level;
+	}
+
+	public void setLevel(Integer level) {
+		this.level = level;
+	}
+
 	private List<Category> children;
 
 	public List<Category> getChildren() {

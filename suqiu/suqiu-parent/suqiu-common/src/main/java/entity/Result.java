@@ -35,6 +35,7 @@ public class Result<T> implements Serializable {
         this.message = "操作成功!";
     }
 
+
     public boolean isFlag() {
         return flag;
     }

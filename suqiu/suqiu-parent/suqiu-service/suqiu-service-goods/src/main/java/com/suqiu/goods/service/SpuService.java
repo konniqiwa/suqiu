@@ -2,6 +2,8 @@ package com.suqiu.goods.service;
 import com.suqiu.goods.pojo.Goods;
 import com.suqiu.goods.pojo.Spu;
 import com.github.pagehelper.PageInfo;
+import com.suqiu.model.SpuListModel;
+
 import java.util.List;
 /****
  * @Author:admin
@@ -85,4 +87,6 @@ public interface SpuService {
 
 
     void restoreSpu(Long id);
+
+    List<Spu> findBySearch(SpuListModel reqModel);
 }

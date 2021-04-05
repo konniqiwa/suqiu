@@ -1,7 +1,11 @@
 package com.suqiu.goods.service;
+
 import com.suqiu.goods.pojo.Category;
 import com.github.pagehelper.PageInfo;
+import com.suqiu.model.BasePageModel;
+
 import java.util.List;
+
 /****
  * @Author:admin
  * @Description:Category业务层接口
@@ -53,10 +57,11 @@ public interface CategoryService {
 
     /**
      * 根据ID查询Category
+     *
      * @param id
      * @return
      */
-     Category findById(Integer id);
+    Category findById(Integer id);
 
     /***
      * 查询所有Category
@@ -65,11 +70,14 @@ public interface CategoryService {
     List<Category> findAll();
 
 
-    List<Category> findByParentId(Integer pid);
+    List<Category> findByParentId(Integer pid, BasePageModel reqModel);
 
     /**
      * 查询所有分类,树形结构
+     *
      * @return
      */
     List<Category> findAllTree();
+
+    void setLevel();
 }

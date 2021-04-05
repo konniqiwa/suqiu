@@ -1,7 +1,12 @@
 package com.suqiu.goods.service;
+
 import com.suqiu.goods.pojo.Brand;
 import com.github.pagehelper.PageInfo;
+import com.suqiu.model.BasePageModel;
+import com.suqiu.model.BrandListModel;
+
 import java.util.List;
+
 /****
  * @Author:admin
  * @Description:Brand业务层接口
@@ -53,10 +58,11 @@ public interface BrandService {
 
     /**
      * 根据ID查询Brand
+     *
      * @param id
      * @return
      */
-     Brand findById(Integer id);
+    Brand findById(Integer id);
 
     /***
      * 查询所有Brand
@@ -66,4 +72,11 @@ public interface BrandService {
 
 
     List<Brand> findByCategory(Integer id);
+
+    /**
+     * 根据条件查询所有brand
+     *
+     * @return
+     */
+    List<Brand> findAllBrand(BrandListModel reqModel);
 }
