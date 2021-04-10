@@ -4,7 +4,10 @@ import com.suqiu.goods.pojo.Goods;
 import com.suqiu.goods.pojo.Spu;
 import com.suqiu.goods.service.SpuService;
 import com.github.pagehelper.PageInfo;
-import com.suqiu.model.SpuListModel;
+import com.suqiu.model.req.SpuListModel;
+import com.suqiu.model.req.UpdateStatusModel;
+import com.suqiu.model.res.SpuListDTO;
+import com.suqiu.model.res.SpuListTotalDTO;
 import entity.JsonDTO;
 import entity.Result;
 import entity.StatusCode;
@@ -22,11 +25,22 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/spu")
-@CrossOrigin
 public class SpuController {
 
     @Autowired
     private SpuService spuService;
+
+    @PostMapping("/updateStatus")
+    public JsonDTO updateStatus(UpdateStatusModel reqModel) {
+        spuService.updateStatus(reqModel);
+        return JsonDTO.createInstance().setStatus(JsonDTO.SUCCESS).setMsg("更改推荐状态成功");
+    }
+
+    @GetMapping("/getInfo{id}")
+    public JsonDTO getInfo(@PathVariable(name = "id") Long id) {
+        SpuListDTO info = spuService.getInfo(id);
+        return JsonDTO.createInstance().setStatus(JsonDTO.SUCCESS).setData(info);
+    }
 
     /***
      * Spu分页条件搜索实现
@@ -147,24 +161,24 @@ public class SpuController {
 
 
     /**
-     * //审核商品 自动上架
+     * //审核商品 上架
      *
      * @param id spu的ID
      * @return
      */
-    @PutMapping("/audit/{id}")
+    @PostMapping("/updateIsMarketable/{id}")
     public Result auditSpu(@PathVariable(name = "id") Long id) {
         spuService.auditSpu(id);
         return new Result(true, StatusCode.OK, "审核通过");
     }
 
-    @PutMapping("/pull/{id}")
+    @PutMapping("/updateNotMarketable{id}")
     public Result pullSpu(@PathVariable(name = "id") Long id) {
         spuService.pullSpu(id);
         return new Result(true, StatusCode.OK, "下架成功");
     }
 
-    @DeleteMapping("/logic/delete/{id}")
+    @DeleteMapping("/deleteSpu/{id}")
     public Result logicDeleteSpu(@PathVariable(name = "id") Long id) {
         spuService.logicDeleteSpu(id);
         return new Result(true, StatusCode.OK, "逻辑删除成功");
@@ -177,10 +191,9 @@ public class SpuController {
     }
 
     @PostMapping("/list")
-    public JsonDTO getAllItem(@RequestBody SpuListModel reqModel) {
-        List<Spu> bySearch = spuService.findBySearch(reqModel);
-        PageInfo pageInfo = new PageInfo(bySearch);
-        return JsonDTO.createInstance().setStatus(JsonDTO.SUCCESS).put("list", bySearch).put("total", pageInfo.getTotal());
+    public JsonDTO getAllItem(@RequestBody SpuListModel reqModel) throws Exception {
+        SpuListTotalDTO bySearch = spuService.findBySearch(reqModel);
+        return JsonDTO.createInstance().setStatus(JsonDTO.SUCCESS).setData(bySearch);
     }
 
 

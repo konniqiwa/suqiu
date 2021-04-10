@@ -2,8 +2,7 @@ package com.suqiu.goods.service;
 
 import com.suqiu.goods.pojo.Brand;
 import com.github.pagehelper.PageInfo;
-import com.suqiu.model.BasePageModel;
-import com.suqiu.model.BrandListModel;
+import com.suqiu.model.req.BrandListModel;
 
 import java.util.List;
 

@@ -1,12 +1,11 @@
 package com.suqiu.goods.service.impl;
 
-import com.alibaba.fastjson.JSON;
 import com.suqiu.goods.dao.CategoryMapper;
 import com.suqiu.goods.pojo.Category;
 import com.suqiu.goods.service.CategoryService;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
-import com.suqiu.model.BasePageModel;
+import com.suqiu.model.req.BasePageModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;

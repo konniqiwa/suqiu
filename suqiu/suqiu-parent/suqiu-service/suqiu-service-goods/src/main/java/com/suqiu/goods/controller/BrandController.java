@@ -3,7 +3,7 @@ package com.suqiu.goods.controller;
 import com.suqiu.goods.pojo.Brand;
 import com.suqiu.goods.service.BrandService;
 import com.github.pagehelper.PageInfo;
-import com.suqiu.model.BrandListModel;
+import com.suqiu.model.req.BrandListModel;
 import entity.JsonDTO;
 import entity.Result;
 import entity.StatusCode;

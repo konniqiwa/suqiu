@@ -1,7 +1,11 @@
 package com.suqiu.goods.feign;
+import com.github.pagehelper.PageInfo;
+import com.suqiu.goods.pojo.SmsBrandRecommend;
 import entity.Result;
 import org.springframework.cloud.openfeign.FeignClient;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 /****
  * @Author:admin

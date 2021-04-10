@@ -3,7 +3,7 @@ package com.suqiu.goods.controller;
 import com.suqiu.goods.pojo.Category;
 import com.suqiu.goods.service.CategoryService;
 import com.github.pagehelper.PageInfo;
-import com.suqiu.model.BasePageModel;
+import com.suqiu.model.req.BasePageModel;
 import entity.JsonDTO;
 import entity.Result;
 import entity.StatusCode;

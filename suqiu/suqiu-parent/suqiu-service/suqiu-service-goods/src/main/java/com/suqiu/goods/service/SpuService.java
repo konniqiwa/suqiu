@@ -1,16 +1,37 @@
 package com.suqiu.goods.service;
+
 import com.suqiu.goods.pojo.Goods;
 import com.suqiu.goods.pojo.Spu;
 import com.github.pagehelper.PageInfo;
-import com.suqiu.model.SpuListModel;
+import com.suqiu.model.req.SpuListModel;
+import com.suqiu.model.req.UpdateStatusModel;
+import com.suqiu.model.res.SpuListDTO;
+import com.suqiu.model.res.SpuListTotalDTO;
 
 import java.util.List;
+
 /****
  * @Author:admin
  * @Description:Spu业务层接口
  * @Date 2019/6/14 0:16
  *****/
 public interface SpuService {
+
+    /**
+     * 是否推荐
+     *
+     * @param model
+     */
+    void updateStatus(UpdateStatusModel model);
+
+    /**
+     * 获取商品详情
+     *
+     * @param id
+     * @return
+     */
+    SpuListDTO getInfo(Long id);
+
 
     /***
      * Spu多条件分页查询
@@ -56,10 +77,11 @@ public interface SpuService {
 
     /**
      * 根据ID查询Spu
+     *
      * @param id
      * @return
      */
-     Spu findById(Long id);
+    Spu findById(Long id);
 
     /***
      * 查询所有Spu
@@ -69,7 +91,8 @@ public interface SpuService {
 
     /**
      * 添加商品(SPU+ SKUlIST)
-     * @param goods   update  add
+     *
+     * @param goods update  add
      */
     void save(Goods goods);
 
@@ -79,6 +102,7 @@ public interface SpuService {
 
     /**
      * 下架
+     *
      * @param id
      */
     void pullSpu(Long id);
@@ -88,5 +112,5 @@ public interface SpuService {
 
     void restoreSpu(Long id);
 
-    List<Spu> findBySearch(SpuListModel reqModel);
+    SpuListTotalDTO findBySearch(SpuListModel reqModel) throws Exception;
 }

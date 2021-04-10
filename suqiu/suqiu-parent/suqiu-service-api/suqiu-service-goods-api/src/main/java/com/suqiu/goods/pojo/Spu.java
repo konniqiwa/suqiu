@@ -80,8 +80,6 @@ public class Spu implements Serializable{
     @Column(name = "status")
 	private String status;//审核状态
 
-
-
 	//get方法
 	public Long getId() {
 		return id;

@@ -3,6 +3,7 @@ package com.suqiu.goods.controller;
 import com.github.pagehelper.PageInfo;
 import com.suqiu.goods.pojo.SmsBrandRecommend;
 import com.suqiu.goods.service.SmsBrandRecommendService;
+import entity.JsonDTO;
 import entity.Result;
 import entity.StatusCode;
 import org.springframework.beans.factory.annotation.Autowired;

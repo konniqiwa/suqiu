@@ -1,16 +1,18 @@
 package com.suqiu.goods.service.impl;
 
 import com.alibaba.fastjson.JSON;
-import com.suqiu.goods.dao.BrandMapper;
-import com.suqiu.goods.dao.CategoryMapper;
-import com.suqiu.goods.dao.SkuMapper;
-import com.suqiu.goods.dao.SpuMapper;
+import com.suqiu.goods.dao.*;
 import com.suqiu.goods.pojo.*;
 import com.suqiu.goods.service.SpuService;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
-import com.suqiu.model.SpuListModel;
+import com.suqiu.model.req.SpuListModel;
+import com.suqiu.model.req.UpdateStatusModel;
+import com.suqiu.model.res.SpuListDTO;
+import com.suqiu.model.res.SpuListTotalDTO;
 import entity.IdWorker;
+import entity.SuqiuBeanUtils;
+import org.apache.ibatis.annotations.Update;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
@@ -43,6 +45,37 @@ public class SpuServiceImpl implements SpuService {
     @Autowired
     private BrandMapper brandMapper;
 
+    @Autowired
+    private SmsBrandRecommendMapper smsBrandRecommendMapper;
+
+    @Autowired
+    private SmsPeopleRecommendMapper smsPeopleRecommendMapper;
+
+    @Override
+    public void updateStatus(UpdateStatusModel model) {
+        SmsPeopleRecommend smsPeopleRecommend = new SmsPeopleRecommend();
+        Example example = new Example(SmsPeopleRecommend.class);
+        Example.Criteria criteria = example.createCriteria();
+        criteria.andEqualTo("id", model.getId());
+
+        // 人气推荐
+        if (model.getType() == 1) {
+            smsPeopleRecommend.setPeopleRecommendStatus(model.getIsRecommend());
+        }
+        // 新品推荐
+        if (model.getType() == 2) {
+            smsPeopleRecommend.setNewRecommendStatus(model.getIsRecommend());
+        }
+        smsPeopleRecommendMapper.updateByExampleSelective(smsPeopleRecommend, example);
+    }
+
+    @Override
+    public SpuListDTO getInfo(Long id) {
+        Sku sku = skuMapper.selectByPrimaryKey(id);
+        SpuListDTO spuListDTO = new SpuListDTO();
+        SuqiuBeanUtils.copyProperties(sku, spuListDTO);
+        return spuListDTO;
+    }
 
     /**
      * Spu条件+分页查询
@@ -402,12 +435,16 @@ public class SpuServiceImpl implements SpuService {
     }
 
     @Override
-    public List<Spu> findBySearch(SpuListModel reqModel) {
+    public SpuListTotalDTO findBySearch(SpuListModel reqModel) throws Exception {
         if (reqModel.getPageNum() != null && reqModel.getPageSize() != null) {
             PageHelper.startPage(reqModel.getPageNum(), reqModel.getPageSize());
         }
         if (StringUtils.isEmpty(reqModel)) {
-            return spuMapper.selectAll();
+            SpuListTotalDTO spuListTotalDTO = new SpuListTotalDTO();
+            spuListTotalDTO.setList(SuqiuBeanUtils.copyListProperties(spuMapper.selectAll(), SpuListDTO.class));
+            PageInfo pageInfo = new PageInfo(spuMapper.selectAll());
+            spuListTotalDTO.setTotal(pageInfo.getTotal());
+            return spuListTotalDTO;
         }
         Example exmaple = new Example(Spu.class);
         Example.Criteria criteria = exmaple.createCriteria();
@@ -415,7 +452,7 @@ public class SpuServiceImpl implements SpuService {
             criteria.andLike("name", String.format("%%%s%%", reqModel.getKeyword()));
         }
         if (reqModel.getProductSn() != null) {
-            criteria.andEqualTo("sn", reqModel.getProductSn());
+            criteria.andLike("sn", String.format("%%%s%%", reqModel.getProductSn()));
         }
         if (reqModel.getProductCategoryId() != null) {
             criteria.andEqualTo("category3Id", reqModel.getProductCategoryId());
@@ -429,8 +466,29 @@ public class SpuServiceImpl implements SpuService {
         if (reqModel.getVerifyStatus() != null) {
             criteria.andEqualTo("status", reqModel.getVerifyStatus());
         }
+        /*List<Spu> spus = spuMapper.selectByExample(exmaple);
+        spus.forEach(spu -> {
+            // 设置品牌名
+            Brand brand = new Brand();
+            brand.setId(spu.getBrandId());
+            Brand brand1 = brandMapper.selectByPrimaryKey(brand);
+            spu.setBrandName(brand1.getName());
+        });*/
+        List<Spu> spus = spuMapper.selectByExample(exmaple);
+        PageInfo pageInfo = new PageInfo(spus);
+        SpuListTotalDTO spuListTotalDTO = new SpuListTotalDTO();
 
-        return spuMapper.selectByExample(exmaple);
+        List<SpuListDTO> spuListDTOS = SuqiuBeanUtils.copyListProperties(spus, SpuListDTO.class);
+        spuListDTOS.forEach(spu -> {
+            // 设置品牌名
+            Brand brand = new Brand();
+            brand.setId(spu.getBrandId());
+            Brand brand1 = brandMapper.selectByPrimaryKey(brand);
+            spu.setBrandName(brand1.getName());
+        });
+        spuListTotalDTO.setList(spuListDTOS);
+        spuListTotalDTO.setTotal(pageInfo.getTotal());
+        return spuListTotalDTO;
     }
 
 

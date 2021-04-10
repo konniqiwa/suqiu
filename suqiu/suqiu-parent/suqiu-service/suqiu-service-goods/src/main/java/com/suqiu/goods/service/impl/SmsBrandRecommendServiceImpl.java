@@ -23,7 +23,6 @@ public class SmsBrandRecommendServiceImpl implements SmsBrandRecommendService {
     @Autowired
     private SmsBrandRecommendMapper smsBrandRecommendMapper;
 
-
     /**
      * SmsBrandRecommend条件+分页查询
      * @param smsBrandRecommend 查询条件
