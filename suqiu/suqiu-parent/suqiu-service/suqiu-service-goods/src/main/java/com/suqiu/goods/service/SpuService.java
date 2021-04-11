@@ -7,6 +7,7 @@ import com.suqiu.model.req.SpuListModel;
 import com.suqiu.model.req.UpdateStatusModel;
 import com.suqiu.model.res.SpuListDTO;
 import com.suqiu.model.res.SpuListTotalDTO;
+import com.suqiu.model.res.SpuSpecDTO;
 
 import java.util.List;
 
@@ -16,6 +17,14 @@ import java.util.List;
  * @Date 2019/6/14 0:16
  *****/
 public interface SpuService {
+
+    /**
+     * 获取商品规格
+     *
+     * @param id
+     * @return
+     */
+    List<SpuSpecDTO> getSpuSpec(Long id);
 
     /**
      * 是否推荐

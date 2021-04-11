@@ -8,6 +8,7 @@ import com.suqiu.model.req.SpuListModel;
 import com.suqiu.model.req.UpdateStatusModel;
 import com.suqiu.model.res.SpuListDTO;
 import com.suqiu.model.res.SpuListTotalDTO;
+import com.suqiu.model.res.SpuSpecDTO;
 import entity.JsonDTO;
 import entity.Result;
 import entity.StatusCode;
@@ -18,9 +19,8 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 /****
- * @Author:admin
- * @Description:
- * @Date 2019/6/14 0:18
+ * @Author:suqiu
+ * @Description: spu控制层
  *****/
 
 @RestController
@@ -29,6 +29,14 @@ public class SpuController {
 
     @Autowired
     private SpuService spuService;
+
+
+    @GetMapping("/getSpuSpec/{id}")
+    public JsonDTO getSpuSpec(@PathVariable(name = "id") Long id) {
+        List<SpuSpecDTO> spuSpec = spuService.getSpuSpec(id);
+        return JsonDTO.createInstance().setStatus(JsonDTO.SUCCESS).setMsg("获取商品规格成功").put("list", spuSpec);
+    }
+
 
     @PostMapping("/updateStatus")
     public JsonDTO updateStatus(UpdateStatusModel reqModel) {

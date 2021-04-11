@@ -10,6 +10,7 @@ import com.suqiu.model.req.SpuListModel;
 import com.suqiu.model.req.UpdateStatusModel;
 import com.suqiu.model.res.SpuListDTO;
 import com.suqiu.model.res.SpuListTotalDTO;
+import com.suqiu.model.res.SpuSpecDTO;
 import entity.IdWorker;
 import entity.SuqiuBeanUtils;
 import org.apache.ibatis.annotations.Update;
@@ -18,9 +19,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 import tk.mybatis.mapper.entity.Example;
 
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /****
  * @Author:admin
@@ -50,6 +49,22 @@ public class SpuServiceImpl implements SpuService {
 
     @Autowired
     private SmsPeopleRecommendMapper smsPeopleRecommendMapper;
+
+    @Override
+    public List<SpuSpecDTO> getSpuSpec(Long id) {
+
+        List<SpuSpecDTO> specs = new ArrayList<>();
+        Spu spu = spuMapper.selectByPrimaryKey(id);
+        HashMap<String,String> map = (HashMap<String, String>) JSON.parseObject(spu.getSpecItems(), Map.class);
+        Set<String> strings = map.keySet();
+        Iterator<String> iterator = strings.iterator();
+        while (iterator.hasNext()) {
+            SpuSpecDTO spuSpecDTO = new SpuSpecDTO();
+            spuSpecDTO.setName(iterator.next());
+            specs.add(spuSpecDTO);
+        }
+        return specs;
+    }
 
     @Override
     public void updateStatus(UpdateStatusModel model) {
