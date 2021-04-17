@@ -43,7 +43,7 @@ public class ScheduleJobController {
 	}
 	
 	/**
-	 * 定时任务信息
+	 * 定时任务信息l
 	 */
 	@RequestMapping("/info/{jobId}")
 	@RequiresPermissions("sys:schedule:info")

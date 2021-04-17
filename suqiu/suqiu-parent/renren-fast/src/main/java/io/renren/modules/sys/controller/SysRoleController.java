@@ -41,13 +41,12 @@ public class SysRoleController extends AbstractController {
 	 * 角色列表
 	 */
 	@GetMapping("/list")
-	@RequiresPermissions("sys:role:list")
+//	@RequiresPermissions("sys:role:list")
 	public R list(@RequestParam Map<String, Object> params){
-		//如果不是超级管理员，则只查询自己创建的角色列表
+		// 如果不是超级管理员，则只查询自己创建的角色列表
 		if(getUserId() != Constant.SUPER_ADMIN){
-			params.put("createUserId", getUserId());
+			// params.put("createUserId", getUserId());
 		}
-
 		PageUtils page = sysRoleService.queryPage(params);
 
 		return R.ok().put("page", page);
@@ -60,7 +59,6 @@ public class SysRoleController extends AbstractController {
 	@RequiresPermissions("sys:role:select")
 	public R select(){
 		Map<String, Object> map = new HashMap<>();
-		
 		//如果不是超级管理员，则只查询自己所拥有的角色列表
 		if(getUserId() != Constant.SUPER_ADMIN){
 			map.put("create_user_id", getUserId());
