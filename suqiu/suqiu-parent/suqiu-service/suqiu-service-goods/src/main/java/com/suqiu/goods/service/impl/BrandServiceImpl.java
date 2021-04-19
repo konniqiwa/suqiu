@@ -6,6 +6,7 @@ import com.suqiu.goods.service.BrandService;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.suqiu.model.req.BrandListModel;
+import com.suqiu.model.req.CreateOrUpdateBrandModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
@@ -176,5 +177,52 @@ public class BrandServiceImpl implements BrandService {
             example.createCriteria().andLike("name", String.format("%%%s%%", reqModel.getKeyword()));
         }
         return brandMapper.selectByExample(example);
+    }
+
+    @Override
+    public void deleteBrand(Long id) {
+        brandMapper.deleteByPrimaryKey(id);
+    }
+
+    @Override
+    public void createOrUpdate(CreateOrUpdateBrandModel model) {
+        Brand brand = new Brand();
+        brand.setStory(model.getBrandStory());
+        brand.setFactoryStatus(model.getFactoryStatus());
+        brand.setShowStatus(model.getShowStatus());
+        brand.setName(model.getName());
+        brand.setImage(model.getLogo());
+        brand.setLetter(model.getFirstLetter());
+        brand.setSeq(model.getSort());
+        if (model.getId() == null) {
+            // 新增品牌
+            brandMapper.insertSelective(brand);
+        }else {
+            brand.setId(Math.toIntExact(model.getId()));
+            brandMapper.updateByPrimaryKeySelective(brand);
+        }
+    }
+
+    @Override
+    public void isFactoryStatus(Long id, int isFactoryStatus) {
+        Brand brand = new Brand();
+        brand.setId(Math.toIntExact(id));
+        brand.setFactoryStatus(isFactoryStatus);
+        brandMapper.updateByPrimaryKeySelective(brand);
+    }
+
+    @Override
+    public void isShowStatus(List<Integer> ids, int showStatus) {
+        ids.forEach(id -> {
+            Brand brand = new Brand();
+            brand.setId(Math.toIntExact(id));
+            brand.setShowStatus(showStatus);
+            brandMapper.updateByPrimaryKeySelective(brand);
+        });
+    }
+
+    @Override
+    public Brand brandInfo(Long id) {
+        return brandMapper.selectByPrimaryKey(id);
     }
 }

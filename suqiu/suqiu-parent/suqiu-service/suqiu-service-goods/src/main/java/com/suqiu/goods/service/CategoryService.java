@@ -3,6 +3,7 @@ package com.suqiu.goods.service;
 import com.suqiu.goods.pojo.Category;
 import com.github.pagehelper.PageInfo;
 import com.suqiu.model.req.BasePageModel;
+import com.suqiu.model.req.UpdateOrAddModel;
 
 import java.util.List;
 
@@ -12,6 +13,7 @@ import java.util.List;
  * @Date 2019/6/14 0:16
  *****/
 public interface CategoryService {
+
 
     /***
      * Category多条件分页查询
@@ -80,4 +82,49 @@ public interface CategoryService {
     List<Category> findAllTree();
 
     void setLevel();
+
+    /**
+     * 是否导航
+     *
+     * @param id
+     * @param isNev
+     */
+    void isNev(Integer id, String isNev);
+
+    /**
+     * 是否显示
+     *
+     * @param id
+     * @param isShow
+     */
+    void isShow(Integer id, String isShow);
+
+    /**
+     * 删除分类
+     *
+     * @param id
+     */
+    void deleteCategory(Integer id);
+
+    /**
+     * 编辑或增加分类
+     *
+     * @param updateOrAddModel
+     */
+    void updateOrAdd(UpdateOrAddModel updateOrAddModel);
+
+    /**
+     * 查询两级分类
+     *
+     * @return
+     */
+    List<Category> withAttr();
+
+    /**
+     * 查询分类详情
+     *
+     * @param id
+     * @return
+     */
+    Category info(Long id);
 }

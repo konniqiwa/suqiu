@@ -34,7 +34,18 @@ public class Brand implements Serializable {
     @Column(name = "show_status")
     private Integer showStatus; //是否显示
 
-	public Integer getFactoryStatus() {
+    @Column(name = "story")
+    private String story; //品牌故事
+
+    public String getStory() {
+        return story;
+    }
+
+    public void setStory(String story) {
+        this.story = story;
+    }
+
+    public Integer getFactoryStatus() {
 		return factoryStatus;
 	}
 

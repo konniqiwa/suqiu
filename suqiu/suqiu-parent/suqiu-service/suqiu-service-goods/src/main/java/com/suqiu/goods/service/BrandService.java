@@ -3,6 +3,7 @@ package com.suqiu.goods.service;
 import com.suqiu.goods.pojo.Brand;
 import com.github.pagehelper.PageInfo;
 import com.suqiu.model.req.BrandListModel;
+import com.suqiu.model.req.CreateOrUpdateBrandModel;
 
 import java.util.List;
 
@@ -78,4 +79,42 @@ public interface BrandService {
      * @return
      */
     List<Brand> findAllBrand(BrandListModel reqModel);
+
+    /**
+     * 删除某品牌
+     *
+     * @param id
+     */
+    void deleteBrand(Long id);
+
+    /**
+     * 增加或编辑品牌
+     *
+     * @param model
+     */
+    void createOrUpdate(CreateOrUpdateBrandModel model);
+
+    /**
+     * 修改品牌制造商状态
+     *
+     * @param id
+     * @param isFactoryStatus
+     */
+    void isFactoryStatus(Long id, int isFactoryStatus);
+
+    /**
+     * 是否显示品牌
+     *
+     * @param ids
+     * @param showStatus
+     */
+    void isShowStatus(List<Integer> ids, int showStatus);
+
+    /**
+     * 获取品牌详情
+     *
+     * @param id
+     * @return
+     */
+    Brand brandInfo(Long id);
 }

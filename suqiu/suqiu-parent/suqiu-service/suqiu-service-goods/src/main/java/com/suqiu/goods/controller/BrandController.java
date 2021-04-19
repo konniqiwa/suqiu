@@ -4,6 +4,7 @@ import com.suqiu.goods.pojo.Brand;
 import com.suqiu.goods.service.BrandService;
 import com.github.pagehelper.PageInfo;
 import com.suqiu.model.req.BrandListModel;
+import com.suqiu.model.req.CreateOrUpdateBrandModel;
 import entity.JsonDTO;
 import entity.Result;
 import entity.StatusCode;
@@ -25,6 +26,60 @@ public class BrandController {
 
     @Autowired
     private BrandService brandService;
+
+    @GetMapping("/getInfo/{id}")
+    private JsonDTO brandInfo(@PathVariable Long id) {
+        Brand brand = brandService.brandInfo(id);
+        return JsonDTO.createInstance().setStatus(JsonDTO.SUCCESS).setMsg("获取品牌详情").setData(brand);
+    }
+
+    @PostMapping("/update/showStatus")
+    private JsonDTO isShowStatus(List<Integer> ids, int showStatus) {
+        brandService.isShowStatus(ids, showStatus);
+        return JsonDTO.createInstance().setStatus(JsonDTO.SUCCESS).setMsg("修改品牌制造商状态");
+    }
+
+    @PostMapping("/isFactoryStatus{id}")
+    private JsonDTO isFactoryStatus(@PathVariable Long id, int isFactoryStatus) {
+        brandService.isFactoryStatus(id, isFactoryStatus);
+        return JsonDTO.createInstance().setStatus(JsonDTO.SUCCESS).setMsg("修改品牌制造商状态");
+    }
+
+    @PostMapping("/createOrUpdate")
+    private JsonDTO createOrUpdate(CreateOrUpdateBrandModel model) {
+        brandService.createOrUpdate(model);
+        return JsonDTO.createInstance().setStatus(JsonDTO.SUCCESS).setMsg("编辑或增加品牌");
+    }
+
+    @PostMapping("/delete/{id}")
+    private JsonDTO deleteBrand(@PathVariable Long id) {
+        brandService.deleteBrand(id);
+        return JsonDTO.createInstance().setStatus(JsonDTO.SUCCESS).setMsg("删除品牌");
+    }
+
+    /***
+     * 查询Brand全部数据
+     * @return
+     */
+    @PostMapping("/list")
+    public JsonDTO findAll(@RequestBody BrandListModel reqModel) {
+        //调用BrandService实现查询所有Brand
+        List<Brand> list = brandService.findAllBrand(reqModel);
+        PageInfo pageInfo = new PageInfo(list);
+        long total = pageInfo.getTotal();
+        return JsonDTO.createInstance().setStatus(JsonDTO.SUCCESS).put("list", list).put("total", total);
+    }
+
+    /**
+     * @return
+     */
+    @GetMapping("/category/{id}")
+    public Result<List<Brand>> findBrandByCategory(@PathVariable(name = "id") Integer id) {
+        List<Brand> brandList = brandService.findByCategory(id);
+
+        return new Result<List<Brand>>(true, StatusCode.OK, "查询品牌列表成功", brandList);
+
+    }
 
     /***
      * Brand分页条件搜索实现
@@ -116,27 +171,5 @@ public class BrandController {
         return new Result<Brand>(true, StatusCode.OK, "查询成功", brand);
     }
 
-    /***
-     * 查询Brand全部数据
-     * @return
-     */
-    @PostMapping("/list")
-    public JsonDTO findAll(@RequestBody BrandListModel reqModel) {
-        //调用BrandService实现查询所有Brand
-        List<Brand> list = brandService.findAllBrand(reqModel);
-        PageInfo pageInfo = new PageInfo(list);
-        long total = pageInfo.getTotal();
-        return JsonDTO.createInstance().setStatus(JsonDTO.SUCCESS).put("list", list).put("total", total);
-    }
 
-    /**
-     * @return
-     */
-    @GetMapping("/category/{id}")
-    public Result<List<Brand>> findBrandByCategory(@PathVariable(name = "id") Integer id) {
-        List<Brand> brandList = brandService.findByCategory(id);
-
-        return new Result<List<Brand>>(true, StatusCode.OK, "查询品牌列表成功", brandList);
-
-    }
 }

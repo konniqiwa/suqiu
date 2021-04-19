@@ -4,6 +4,7 @@ import com.suqiu.goods.pojo.Category;
 import com.suqiu.goods.service.CategoryService;
 import com.github.pagehelper.PageInfo;
 import com.suqiu.model.req.BasePageModel;
+import com.suqiu.model.req.UpdateOrAddModel;
 import entity.JsonDTO;
 import entity.Result;
 import entity.StatusCode;
@@ -25,6 +26,48 @@ public class CategoryController {
 
     @Autowired
     private CategoryService categoryService;
+
+    @GetMapping("/info/{id}")
+    private JsonDTO info(@PathVariable Long id) {
+        Category category = categoryService.info(id);
+        return JsonDTO.createInstance().setStatus(JsonDTO.SUCCESS).setMsg("查询分类详情").setData(category);
+    }
+
+    @GetMapping("/list/withAttr")
+    private JsonDTO withAttr() {
+        List<Category> categories = categoryService.withAttr();
+        return JsonDTO.createInstance().setStatus(JsonDTO.SUCCESS).setMsg("查询两级分类").put("list",categories);
+    }
+
+    /**
+     * 编辑或添加分类
+     *
+     * @param updateOrAddModel
+     * @return
+     */
+    @PostMapping("/updateOrAdd/{id}")
+    private JsonDTO updateOrAdd(UpdateOrAddModel updateOrAddModel) {
+        categoryService.updateOrAdd(updateOrAddModel);
+        return JsonDTO.createInstance().setStatus(JsonDTO.SUCCESS).setMsg("编辑或删除分类成功");
+    }
+
+    @PostMapping("/deleteCategory/{id}")
+    private JsonDTO deleteCategory(@PathVariable Integer id) {
+        categoryService.deleteCategory(id);
+        return JsonDTO.createInstance().setStatus(JsonDTO.SUCCESS).setMsg("删除分类成功");
+    }
+
+    @PostMapping("/isShow/{id}")
+    private JsonDTO isShow(@PathVariable Integer id, String isShow) {
+        categoryService.isShow(id, isShow);
+        return JsonDTO.createInstance().setStatus(JsonDTO.SUCCESS).setMsg("修改显示状态");
+    }
+
+    @PostMapping(value = "/isNev/{id}")
+    private JsonDTO isNev(@PathVariable Integer id, String isNev) {
+        categoryService.isNev(id, isNev);
+        return JsonDTO.createInstance().setStatus(JsonDTO.SUCCESS).setMsg("修改导航状态");
+    }
 
     /***
      * Category分页条件搜索实现

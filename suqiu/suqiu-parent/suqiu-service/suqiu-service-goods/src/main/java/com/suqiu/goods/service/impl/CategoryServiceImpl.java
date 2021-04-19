@@ -6,11 +6,14 @@ import com.suqiu.goods.service.CategoryService;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.suqiu.model.req.BasePageModel;
+import com.suqiu.model.req.UpdateOrAddModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 import tk.mybatis.mapper.entity.Example;
 
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -201,29 +204,6 @@ public class CategoryServiceImpl implements CategoryService {
         }).collect(Collectors.toList());
         return collect;*/
 
-
-        /*Example example3 = new Example(Category.class);
-        example3.createCriteria().andEqualTo("level", 2);
-        List<Category> categories3 = categoryMapper.selectByExample(example3);
-
-        Example example2 = new Example(Category.class);
-        example2.createCriteria().andEqualTo("level", 1);
-        List<Category> categories2 = categoryMapper.selectByExample(example2);
-        for (Category category2 : categories2) {
-            category2.setChildren(categories3);
-        }
-
-
-        Example example = new Example(Category.class);
-        example.createCriteria().andEqualTo("level", 0);
-        List<Category> categories = categoryMapper.selectByExample(example);
-        for (Category category : categories) {
-            category.setChildren(categories2);
-        }
-        System.out.println(JSON.toJSONString(categories));
-        return categories;*/
-
-
         List<Category> byParentId1 = this.findByParentId(0, null);
         byParentId1.forEach(item -> {
             List<Category> byParentId2 = this.findByParentId(item.getId(), null);
@@ -276,5 +256,68 @@ public class CategoryServiceImpl implements CategoryService {
         }
 
 
+    }
+
+    @Override
+    public void isNev(Integer id, String isNev) {
+        Category category = new Category();
+        category.setId(id);
+        category.setIsMenu(isNev);
+        categoryMapper.updateByPrimaryKey(category);
+    }
+
+    @Override
+    public void isShow(Integer id, String isShow) {
+        Category category = new Category();
+        category.setId(id);
+        category.setIsShow(isShow);
+        categoryMapper.updateByPrimaryKey(category);
+    }
+
+    @Override
+    public void deleteCategory(Integer id) {
+        categoryMapper.deleteByPrimaryKey(id);
+    }
+
+    @Override
+    public void updateOrAdd(UpdateOrAddModel updateOrAddModel) {
+        Category getLevelCategory = null;
+        int level = 0;
+        if (updateOrAddModel.getParentId() != 0) {
+            getLevelCategory = categoryMapper.selectByPrimaryKey(updateOrAddModel.getParentId());
+            level = getLevelCategory.getLevel() + 1;
+        }
+        Category category = new Category();
+        category.setLevel(level);
+        category.setGoodsNum(0);
+        category.setName(updateOrAddModel.getName());
+        category.setIsShow(String.valueOf(updateOrAddModel.getShowStatus()));
+        category.setIsMenu(String.valueOf(updateOrAddModel.getNavStatus()));
+        category.setSeq(updateOrAddModel.getSort());
+        category.setParentId(updateOrAddModel.getParentId());
+        if (updateOrAddModel.getId() == null) {
+            // 增加分类
+            categoryMapper.insertSelective(category);
+        } else {
+            // 编辑分类
+            category.setId(Math.toIntExact(updateOrAddModel.getId()));
+            categoryMapper.updateByPrimaryKeySelective(category);
+        }
+
+    }
+
+    @Override
+    public List<Category> withAttr() {
+        Example example = new Example(Category.class);
+        List list = new ArrayList();
+        list.add(0);
+        list.add(1);
+        example.createCriteria().andIn("level", (Iterable) list.iterator());
+        return categoryMapper.selectByExample(example);
+    }
+
+    @Override
+    public Category info(Long id) {
+        return categoryMapper.selectByPrimaryKey(id);
     }
 }
