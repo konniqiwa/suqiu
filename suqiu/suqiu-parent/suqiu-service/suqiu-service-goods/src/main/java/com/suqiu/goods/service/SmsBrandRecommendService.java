@@ -2,6 +2,12 @@ package com.suqiu.goods.service;
 
 import com.github.pagehelper.PageInfo;
 import com.suqiu.goods.pojo.SmsBrandRecommend;
+import com.suqiu.model.req.CreateNewRecommendModel;
+import com.suqiu.model.req.CreatePeopleRecommendModel;
+import com.suqiu.model.req.NewRecommendModel;
+import com.suqiu.model.req.PeopleRecommendModel;
+import com.suqiu.model.res.SmsNewRecommendListDTO;
+import com.suqiu.model.res.SmsPeopleRecommendListDTO;
 
 import java.util.List;
 
@@ -40,7 +46,7 @@ public interface SmsBrandRecommendService {
      * 删除SmsBrandRecommend
      * @param id
      */
-    void delete(Long id);
+    void delete(List<Long> id);
 
     /***
      * 修改SmsBrandRecommend数据
@@ -56,14 +62,48 @@ public interface SmsBrandRecommendService {
 
     /**
      * 根据ID查询SmsBrandRecommend
+     *
      * @param id
      * @return
      */
-     SmsBrandRecommend findById(Long id);
+    SmsBrandRecommend findById(Long id);
 
     /***
      * 查询所有SmsBrandRecommend
      * @return
      */
     List<SmsBrandRecommend> findAll();
+
+    /**
+     * 根据条件查询推荐列表
+     *
+     * @param model
+     * @return
+     */
+    SmsNewRecommendListDTO smsPeopleRecommendList(NewRecommendModel model);
+
+
+    /**
+     * 设置推荐状态
+     *
+     * @param ids
+     * @param recommendStatus
+     */
+    void isPeopleRecommend(List<Long> ids, int recommendStatus);
+
+    /**
+     * 设置排序
+     *
+     * @param id
+     * @param sort
+     */
+    void peopleSort(Long id, int sort);
+
+
+    /**
+     * 增加推荐
+     *
+     * @param peopleRecommend
+     */
+    void create(List<CreateNewRecommendModel> peopleRecommend);
 }

@@ -12,6 +12,11 @@
     <artifactId>suqiu-common</artifactId>
 
     <dependencies>
+        <dependency>
+            <groupId>com.suqiu</groupId>
+            <artifactId>suqiu-service-goods-api</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
         <!--web起步依赖-->
         <dependency>
             <groupId>org.springframework.boot</groupId>

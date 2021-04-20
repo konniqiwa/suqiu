@@ -15,9 +15,9 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 /****
- * @Author:admin
+ * @Author:suqiu
  * @Description:
- * @Date 2019/6/14 0:18
+ * @Date 2020/6/14 0:18
  *****/
 
 @RestController
@@ -28,31 +28,31 @@ public class BrandController {
     private BrandService brandService;
 
     @GetMapping("/getInfo/{id}")
-    private JsonDTO brandInfo(@PathVariable Long id) {
+    public JsonDTO brandInfo(@PathVariable Long id) {
         Brand brand = brandService.brandInfo(id);
         return JsonDTO.createInstance().setStatus(JsonDTO.SUCCESS).setMsg("获取品牌详情").setData(brand);
     }
 
     @PostMapping("/update/showStatus")
-    private JsonDTO isShowStatus(List<Integer> ids, int showStatus) {
+    public JsonDTO isShowStatus(List<Integer> ids, int showStatus) {
         brandService.isShowStatus(ids, showStatus);
         return JsonDTO.createInstance().setStatus(JsonDTO.SUCCESS).setMsg("修改品牌制造商状态");
     }
 
     @PostMapping("/isFactoryStatus{id}")
-    private JsonDTO isFactoryStatus(@PathVariable Long id, int isFactoryStatus) {
+    public JsonDTO isFactoryStatus(@PathVariable Long id, int isFactoryStatus) {
         brandService.isFactoryStatus(id, isFactoryStatus);
         return JsonDTO.createInstance().setStatus(JsonDTO.SUCCESS).setMsg("修改品牌制造商状态");
     }
 
     @PostMapping("/createOrUpdate")
-    private JsonDTO createOrUpdate(CreateOrUpdateBrandModel model) {
+    public JsonDTO createOrUpdate(CreateOrUpdateBrandModel model) {
         brandService.createOrUpdate(model);
         return JsonDTO.createInstance().setStatus(JsonDTO.SUCCESS).setMsg("编辑或增加品牌");
     }
 
     @PostMapping("/delete/{id}")
-    private JsonDTO deleteBrand(@PathVariable Long id) {
+    public JsonDTO deleteBrand(@PathVariable Long id) {
         brandService.deleteBrand(id);
         return JsonDTO.createInstance().setStatus(JsonDTO.SUCCESS).setMsg("删除品牌");
     }

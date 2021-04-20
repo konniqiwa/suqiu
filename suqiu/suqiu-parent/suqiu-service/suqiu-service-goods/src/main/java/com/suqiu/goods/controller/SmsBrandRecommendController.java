@@ -3,6 +3,12 @@ package com.suqiu.goods.controller;
 import com.github.pagehelper.PageInfo;
 import com.suqiu.goods.pojo.SmsBrandRecommend;
 import com.suqiu.goods.service.SmsBrandRecommendService;
+import com.suqiu.model.req.CreateNewRecommendModel;
+import com.suqiu.model.req.CreatePeopleRecommendModel;
+import com.suqiu.model.req.NewRecommendModel;
+import com.suqiu.model.req.PeopleRecommendModel;
+import com.suqiu.model.res.SmsNewRecommendListDTO;
+import com.suqiu.model.res.SmsPeopleRecommendListDTO;
 import entity.JsonDTO;
 import entity.Result;
 import entity.StatusCode;
@@ -24,6 +30,37 @@ public class SmsBrandRecommendController {
 
     @Autowired
     private SmsBrandRecommendService smsBrandRecommendService;
+
+    @PostMapping("/createBrand")
+    public JsonDTO createNew(@RequestBody List<CreateNewRecommendModel> brandRecommend) {
+        smsBrandRecommendService.create(brandRecommend);
+        return JsonDTO.createInstance().setStatus(JsonDTO.SUCCESS).setMsg("添加品牌推荐成功");
+    }
+
+    @PostMapping(value = "/deleteBrand")
+    public JsonDTO deleteNew(List<Long> ids) {
+        //调用SmsPeopleRecommendService实现根据主键删除
+        smsBrandRecommendService.delete(ids);
+        return JsonDTO.createInstance().setStatus(JsonDTO.SUCCESS).setMsg("删除品牌推荐");
+    }
+
+    @PostMapping("/sortBrand/{id}")
+    public JsonDTO newSort(@PathVariable Long id, int sort) {
+        smsBrandRecommendService.peopleSort(id, sort);
+        return JsonDTO.createInstance().setStatus(JsonDTO.SUCCESS).setMsg("设置品牌排序");
+    }
+
+    @PostMapping("/isBrandRecommend")
+    public JsonDTO isNewRecommend(List<Long> ids, int recommendStatus) {
+        smsBrandRecommendService.isPeopleRecommend(ids, recommendStatus);
+        return JsonDTO.createInstance().setStatus(JsonDTO.SUCCESS).setMsg("设置品牌推荐状态");
+    }
+
+    @PostMapping("/listBrand")
+    public JsonDTO smsNewRecommendList(@RequestBody NewRecommendModel model) {
+        SmsNewRecommendListDTO smsNewRecommendListDTO = smsBrandRecommendService.smsPeopleRecommendList(model);
+        return JsonDTO.createInstance().setStatus(JsonDTO.SUCCESS).setMsg("查询品牌推荐列表").setData(smsNewRecommendListDTO);
+    }
 
     /***
      * SmsBrandRecommend分页条件搜索实现
@@ -64,17 +101,6 @@ public class SmsBrandRecommendController {
         return new Result<List<SmsBrandRecommend>>(true,StatusCode.OK,"查询成功",list);
     }
 
-    /***
-     * 根据ID删除品牌数据
-     * @param id
-     * @return
-     */
-    @DeleteMapping(value = "/{id}" )
-    public Result delete(@PathVariable Long id){
-        //调用SmsBrandRecommendService实现根据主键删除
-        smsBrandRecommendService.delete(id);
-        return new Result(true,StatusCode.OK,"删除成功");
-    }
 
     /***
      * 修改SmsBrandRecommend数据
