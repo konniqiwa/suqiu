@@ -1,5 +1,6 @@
 package com.suqiu.order.service.impl;
 
+import com.suqiu.model.req.UpdateOrderConfigModel;
 import com.suqiu.order.dao.OrderConfigMapper;
 import com.suqiu.order.pojo.OrderConfig;
 import com.suqiu.order.service.OrderConfigService;
@@ -150,5 +151,17 @@ public class OrderConfigServiceImpl implements OrderConfigService {
     @Override
     public List<OrderConfig> findAll() {
         return orderConfigMapper.selectAll();
+    }
+
+    @Override
+    public void updateOrderConfig(UpdateOrderConfigModel model) {
+        OrderConfig orderConfig = new OrderConfig();
+        orderConfig.setId(model.getId());
+        orderConfig.setOrderTimeout(model.getNormalOrderOvertime());
+        orderConfig.setSeckillTimeout(model.getFlashOrderOvertime());
+        orderConfig.setTakeTimeout(model.getConfirmOvertime());
+        orderConfig.setServiceTimeout(model.getFinishOvertime());
+        orderConfig.setCommentTimeout(model.getCommentOvertime());
+        orderConfigMapper.updateByPrimaryKeySelective(orderConfig);
     }
 }

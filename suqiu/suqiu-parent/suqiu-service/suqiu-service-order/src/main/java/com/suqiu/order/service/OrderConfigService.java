@@ -1,5 +1,6 @@
 package com.suqiu.order.service;
 
+import com.suqiu.model.req.UpdateOrderConfigModel;
 import com.suqiu.order.pojo.OrderConfig;
 import com.github.pagehelper.PageInfo;
 
@@ -56,14 +57,22 @@ public interface OrderConfigService {
 
     /**
      * 根据ID查询OrderConfig
+     *
      * @param id
      * @return
      */
-     OrderConfig findById(Integer id);
+    OrderConfig findById(Integer id);
 
     /***
      * 查询所有OrderConfig
      * @return
      */
     List<OrderConfig> findAll();
+
+    /**
+     * 修改订单配置
+     *
+     * @param model
+     */
+    void updateOrderConfig(UpdateOrderConfigModel model);
 }
