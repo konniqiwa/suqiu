@@ -1,8 +1,12 @@
 package com.suqiu.order.controller;
 
+import com.suqiu.model.req.CloseOrderModel;
+import com.suqiu.model.req.DeleteOrderModel;
+import com.suqiu.model.req.DeliveryOrderModel;
 import com.suqiu.order.pojo.Order;
 import com.suqiu.order.service.OrderService;
 import com.github.pagehelper.PageInfo;
+import entity.JsonDTO;
 import entity.Result;
 import entity.StatusCode;
 import entity.TokenDecode;
@@ -25,6 +29,25 @@ public class OrderController {
     @Autowired
     private OrderService orderService;
 
+    @PostMapping("/delivery")
+    public JsonDTO delivery(@RequestBody DeliveryOrderModel model) {
+        orderService.delivery(model);
+        return JsonDTO.createInstance().setStatus(JsonDTO.SUCCESS).setMsg("发货成功");
+    }
+
+    @PostMapping(value = "/delete")
+    public JsonDTO delete(@RequestBody DeleteOrderModel model) {
+        //调用OrderService实现根据主键删除
+        orderService.delete(model);
+        return JsonDTO.createInstance().setStatus(JsonDTO.SUCCESS).setMsg("删除订单");
+    }
+
+    @PostMapping(value = "/close")
+    public JsonDTO closeOrder(@RequestBody CloseOrderModel closeOrderModel) {
+        orderService.closeOrder(closeOrderModel);
+        return JsonDTO.createInstance().setStatus(JsonDTO.SUCCESS).setMsg("关闭订单");
+    }
+
     /***
      * Order分页条件搜索实现
      * @param order
@@ -32,11 +55,11 @@ public class OrderController {
      * @param size
      * @return
      */
-    @PostMapping(value = "/search/{page}/{size}" )
-    public Result<PageInfo> findPage(@RequestBody(required = false)  Order order, @PathVariable  int page, @PathVariable  int size){
+    @PostMapping(value = "/search/{page}/{size}")
+    public Result<PageInfo> findPage(@RequestBody(required = false) Order order, @PathVariable int page, @PathVariable int size) {
         //调用OrderService实现分页条件查询Order
         PageInfo<Order> pageInfo = orderService.findPage(order, page, size);
-        return new Result(true,StatusCode.OK,"查询成功",pageInfo);
+        return new Result(true, StatusCode.OK, "查询成功", pageInfo);
     }
 
     /***
@@ -45,11 +68,11 @@ public class OrderController {
      * @param size:每页显示多少条
      * @return
      */
-    @GetMapping(value = "/search/{page}/{size}" )
-    public Result<PageInfo> findPage(@PathVariable  int page, @PathVariable  int size){
+    @GetMapping(value = "/search/{page}/{size}")
+    public Result<PageInfo> findPage(@PathVariable int page, @PathVariable int size) {
         //调用OrderService实现分页查询Order
         PageInfo<Order> pageInfo = orderService.findPage(page, size);
-        return new Result<PageInfo>(true,StatusCode.OK,"查询成功",pageInfo);
+        return new Result<PageInfo>(true, StatusCode.OK, "查询成功", pageInfo);
     }
 
     /***
@@ -57,24 +80,13 @@ public class OrderController {
      * @param order
      * @return
      */
-    @PostMapping(value = "/search" )
-    public Result<List<Order>> findList(@RequestBody(required = false)  Order order){
+    @PostMapping(value = "/search")
+    public Result<List<Order>> findList(@RequestBody(required = false) Order order) {
         //调用OrderService实现条件查询Order
         List<Order> list = orderService.findList(order);
-        return new Result<List<Order>>(true,StatusCode.OK,"查询成功",list);
+        return new Result<List<Order>>(true, StatusCode.OK, "查询成功", list);
     }
 
-    /***
-     * 根据ID删除品牌数据
-     * @param id
-     * @return
-     */
-    @DeleteMapping(value = "/{id}" )
-    public Result delete(@PathVariable String id){
-        //调用OrderService实现根据主键删除
-        orderService.delete(id);
-        return new Result(true,StatusCode.OK,"删除成功");
-    }
 
     /***
      * 修改Order数据
@@ -82,13 +94,13 @@ public class OrderController {
      * @param id
      * @return
      */
-    @PutMapping(value="/{id}")
-    public Result update(@RequestBody  Order order,@PathVariable String id){
+    @PutMapping(value = "/{id}")
+    public Result update(@RequestBody Order order, @PathVariable String id) {
         //设置主键值
         order.setId(id);
         //调用OrderService实现修改Order
         orderService.update(order);
-        return new Result(true,StatusCode.OK,"修改成功");
+        return new Result(true, StatusCode.OK, "修改成功");
     }
 
     /***
@@ -97,14 +109,14 @@ public class OrderController {
      * @return
      */
     @PostMapping
-    public Result add(@RequestBody   Order order){
+    public Result add(@RequestBody Order order) {
         //调用OrderService实现添加Order
         String username = TokenDecode.getUserInfo().get("username");
 
         order.setUsername(username);
 
         orderService.add(order);
-        return new Result(true,StatusCode.OK,"添加成功");
+        return new Result(true, StatusCode.OK, "添加成功");
     }
 
     /***
@@ -113,10 +125,10 @@ public class OrderController {
      * @return
      */
     @GetMapping("/{id}")
-    public Result<Order> findById(@PathVariable String id){
+    public Result<Order> findById(@PathVariable String id) {
         //调用OrderService实现根据主键查询Order
         Order order = orderService.findById(id);
-        return new Result<Order>(true,StatusCode.OK,"查询成功",order);
+        return new Result<Order>(true, StatusCode.OK, "查询成功", order);
     }
 
     /***
@@ -124,9 +136,9 @@ public class OrderController {
      * @return
      */
     @GetMapping
-    public Result<List<Order>> findAll(){
+    public Result<List<Order>> findAll() {
         //调用OrderService实现查询所有Order
         List<Order> list = orderService.findAll();
-        return new Result<List<Order>>(true, StatusCode.OK,"查询成功",list) ;
+        return new Result<List<Order>>(true, StatusCode.OK, "查询成功", list);
     }
 }

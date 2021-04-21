@@ -3,6 +3,8 @@ package com.suqiu.goods.service;
 import com.suqiu.goods.pojo.Category;
 import com.github.pagehelper.PageInfo;
 import com.suqiu.model.req.BasePageModel;
+import com.suqiu.model.req.IsNevCategoryModel;
+import com.suqiu.model.req.IsShowCategoryModel;
 import com.suqiu.model.req.UpdateOrAddModel;
 
 import java.util.List;
@@ -87,17 +89,17 @@ public interface CategoryService {
      * 是否导航
      *
      * @param id
-     * @param isNev
+     * @param model
      */
-    void isNev(Integer id, String isNev);
+    void isNev(Integer id, IsNevCategoryModel model);
 
     /**
      * 是否显示
      *
      * @param id
-     * @param isShow
+     * @param model
      */
-    void isShow(Integer id, String isShow);
+    void isShow(Integer id, IsShowCategoryModel model);
 
     /**
      * 删除分类

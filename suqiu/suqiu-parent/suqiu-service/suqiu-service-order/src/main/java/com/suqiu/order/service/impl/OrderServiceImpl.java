@@ -1,6 +1,9 @@
 package com.suqiu.order.service.impl;
 
 import com.suqiu.goods.feign.SkuFeign;
+import com.suqiu.model.req.CloseOrderModel;
+import com.suqiu.model.req.DeleteOrderModel;
+import com.suqiu.model.req.DeliveryOrderModel;
 import com.suqiu.order.dao.OrderItemMapper;
 import com.suqiu.order.dao.OrderMapper;
 import com.suqiu.order.pojo.Order;
@@ -221,11 +224,18 @@ public class OrderServiceImpl implements OrderService {
 
     /**
      * 删除
-     * @param id
+     * @param model
      */
     @Override
-    public void delete(String id){
-        orderMapper.deleteByPrimaryKey(id);
+    public void delete(DeleteOrderModel model){
+        model.getIds().forEach(id -> {
+            Order order = new Order();
+            order.setId(String.valueOf(id));
+            order.setIsDelete("1");
+            orderMapper.updateByPrimaryKeySelective(order);
+        });
+
+
     }
 
     /**
@@ -386,7 +396,24 @@ public class OrderServiceImpl implements OrderService {
         //回滚库存
     }
 
+    @Override
+    public void closeOrder(CloseOrderModel closeOrderModel) {
+        closeOrderModel.getIds().forEach(id -> {
+            Order order = new Order();
+            order.setId(String.valueOf(id));
+            order.setOrderStatus("1");
+            orderMapper.updateByPrimaryKeySelective(order);
+        });
+    }
 
-
-
+    @Override
+    public void delivery(DeliveryOrderModel model) {
+        model.getList().forEach(deliveryOrderInfoModel -> {
+            Order order = new Order();
+            order.setId(String.valueOf(deliveryOrderInfoModel.getOrderId()));
+            order.setConsignStatus("1");
+            order.setConsignTime(new Date());
+            orderMapper.updateByPrimaryKeySelective(order);
+        });
+    }
 }

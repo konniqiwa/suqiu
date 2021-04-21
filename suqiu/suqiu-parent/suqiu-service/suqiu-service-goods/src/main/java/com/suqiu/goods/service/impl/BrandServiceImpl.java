@@ -7,6 +7,8 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.suqiu.model.req.BrandListModel;
 import com.suqiu.model.req.CreateOrUpdateBrandModel;
+import com.suqiu.model.req.IsFactoryStatusModel;
+import com.suqiu.model.req.IsShowStatusModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
@@ -204,19 +206,19 @@ public class BrandServiceImpl implements BrandService {
     }
 
     @Override
-    public void isFactoryStatus(Long id, int isFactoryStatus) {
+    public void isFactoryStatus(Long id, IsFactoryStatusModel model) {
         Brand brand = new Brand();
         brand.setId(Math.toIntExact(id));
-        brand.setFactoryStatus(isFactoryStatus);
+        brand.setFactoryStatus(model.getIsFactoryStatus());
         brandMapper.updateByPrimaryKeySelective(brand);
     }
 
     @Override
-    public void isShowStatus(List<Integer> ids, int showStatus) {
-        ids.forEach(id -> {
+    public void isShowStatus(IsShowStatusModel model) {
+        model.getIds().forEach(id -> {
             Brand brand = new Brand();
             brand.setId(Math.toIntExact(id));
-            brand.setShowStatus(showStatus);
+            brand.setShowStatus(model.getShowStatus());
             brandMapper.updateByPrimaryKeySelective(brand);
         });
     }

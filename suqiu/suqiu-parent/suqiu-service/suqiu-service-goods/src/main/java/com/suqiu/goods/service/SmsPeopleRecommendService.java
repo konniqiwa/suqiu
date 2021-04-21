@@ -2,8 +2,7 @@ package com.suqiu.goods.service;
 
 import com.github.pagehelper.PageInfo;
 import com.suqiu.goods.pojo.SmsPeopleRecommend;
-import com.suqiu.model.req.CreatePeopleRecommendModel;
-import com.suqiu.model.req.PeopleRecommendModel;
+import com.suqiu.model.req.*;
 import com.suqiu.model.res.SmsPeopleRecommendListDTO;
 
 import java.util.List;
@@ -41,9 +40,9 @@ public interface SmsPeopleRecommendService {
 
     /***
      * 删除SmsPeopleRecommend
-     * @param ids
+     * @param model
      */
-    void delete(List<Long> ids);
+    void delete(DeletePeopleModel model);
 
     /***
      * 修改SmsPeopleRecommend数据
@@ -85,26 +84,25 @@ public interface SmsPeopleRecommendService {
     /**
      * 设置推荐状态
      *
-     * @param ids
-     * @param recommendStatus
+     * @param model
      * @param type
      */
-    void isPeopleRecommend(List<Long> ids, int recommendStatus, int type);
+    void isPeopleRecommend(IsPeopleRecommendModel model, int type);
 
     /**
      * 设置排序
      *
      * @param id
-     * @param sort
+     * @param model
      */
-    void peopleSort(Long id, int sort, int type);
+    void peopleSort(Long id, PeopleSortModel model, int type);
 
 
     /**
      * 增加推荐
      *
-     * @param peopleRecommend
+     * @param model
      * @param type
      */
-    void create(List<CreatePeopleRecommendModel> peopleRecommend, int type);
+    void create(CreatePeopleModel model, int type);
 }

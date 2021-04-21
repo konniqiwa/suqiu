@@ -5,8 +5,7 @@ import com.github.pagehelper.PageInfo;
 import com.suqiu.goods.dao.SmsPeopleRecommendMapper;
 import com.suqiu.goods.pojo.SmsPeopleRecommend;
 import com.suqiu.goods.service.SmsPeopleRecommendService;
-import com.suqiu.model.req.CreatePeopleRecommendModel;
-import com.suqiu.model.req.PeopleRecommendModel;
+import com.suqiu.model.req.*;
 import com.suqiu.model.res.SmsPeopleRecommendListDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -118,11 +117,11 @@ public class SmsPeopleRecommendServiceImpl implements SmsPeopleRecommendService 
     /**
      * 删除
      *
-     * @param ids
+     * @param model
      */
     @Override
-    public void delete(List<Long> ids) {
-        ids.forEach(id -> {
+    public void delete(DeletePeopleModel model) {
+        model.getIds().forEach(id -> {
             smsPeopleRecommendMapper.deleteByPrimaryKey(id);
         });
     }
@@ -196,15 +195,15 @@ public class SmsPeopleRecommendServiceImpl implements SmsPeopleRecommendService 
     }
 
     @Override
-    public void isPeopleRecommend(List<Long> ids, int recommendStatus, int type) {
-        if (ids != null) {
-            ids.forEach(id -> {
+    public void isPeopleRecommend(IsPeopleRecommendModel model, int type) {
+        if (model.getIds() != null) {
+            model.getIds().forEach(id -> {
                 SmsPeopleRecommend smsPeopleRecommend = new SmsPeopleRecommend();
                 smsPeopleRecommend.setProductId(id);
                 if (type == 1) {
-                    smsPeopleRecommend.setPeopleRecommendStatus(recommendStatus);
+                    smsPeopleRecommend.setPeopleRecommendStatus(model.getRecommendStatus());
                 } else {
-                    smsPeopleRecommend.setNewRecommendStatus(recommendStatus);
+                    smsPeopleRecommend.setNewRecommendStatus(model.getRecommendStatus());
                 }
                 smsPeopleRecommendMapper.updateByPrimaryKeySelective(smsPeopleRecommend);
             });
@@ -213,20 +212,20 @@ public class SmsPeopleRecommendServiceImpl implements SmsPeopleRecommendService 
     }
 
     @Override
-    public void peopleSort(Long id, int sort, int type) {
+    public void peopleSort(Long id, PeopleSortModel model, int type) {
         SmsPeopleRecommend smsPeopleRecommend = new SmsPeopleRecommend();
         smsPeopleRecommend.setProductId(id);
         if (type == 1) {
-            smsPeopleRecommend.setPeopleSort(Long.valueOf(sort));
+            smsPeopleRecommend.setPeopleSort(Long.valueOf(model.getSort()));
         } else {
-            smsPeopleRecommend.setNewSort(Long.valueOf(sort));
+            smsPeopleRecommend.setNewSort(Long.valueOf(model.getSort()));
         }
         smsPeopleRecommendMapper.updateByPrimaryKeySelective(smsPeopleRecommend);
     }
 
     @Override
-    public void create(List<CreatePeopleRecommendModel> peopleRecommend, int type) {
-        peopleRecommend.forEach(item -> {
+    public void create(CreatePeopleModel model, int type) {
+        model.getPeopleRecommend().forEach(item -> {
             SmsPeopleRecommend smsPeopleRecommend = new SmsPeopleRecommend();
             smsPeopleRecommend.setProductId(item.getProductId());
             // 默认推荐

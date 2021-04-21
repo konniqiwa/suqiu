@@ -3,8 +3,7 @@ package com.suqiu.goods.controller;
 import com.github.pagehelper.PageInfo;
 import com.suqiu.goods.pojo.SmsPeopleRecommend;
 import com.suqiu.goods.service.SmsPeopleRecommendService;
-import com.suqiu.model.req.CreatePeopleRecommendModel;
-import com.suqiu.model.req.PeopleRecommendModel;
+import com.suqiu.model.req.*;
 import com.suqiu.model.res.SmsPeopleRecommendListDTO;
 import entity.JsonDTO;
 import entity.Result;
@@ -31,27 +30,27 @@ public class SmsPeopleRecommendController {
 
 
     @PostMapping("/createPeople")
-    public JsonDTO createPeople(@RequestBody List<CreatePeopleRecommendModel> peopleRecommend) {
-        smsPeopleRecommendService.create(peopleRecommend, 1);
+    public JsonDTO createPeople(@RequestBody CreatePeopleModel model) {
+        smsPeopleRecommendService.create(model, 1);
         return JsonDTO.createInstance().setStatus(JsonDTO.SUCCESS).setMsg("添加人气推荐成功");
     }
 
     @PostMapping(value = "/deletePeople")
-    public JsonDTO deletePeople(List<Long> ids) {
+    public JsonDTO deletePeople(@RequestBody DeletePeopleModel model) {
         //调用SmsPeopleRecommendService实现根据主键删除
-        smsPeopleRecommendService.delete(ids);
+        smsPeopleRecommendService.delete(model);
         return JsonDTO.createInstance().setStatus(JsonDTO.SUCCESS).setMsg("删除推荐");
     }
 
     @PostMapping("/sortPeople/{id}")
-    public JsonDTO peopleSort(@PathVariable Long id, int sort) {
-        smsPeopleRecommendService.peopleSort(id, sort, 1);
+    public JsonDTO peopleSort(@PathVariable Long id, @RequestBody PeopleSortModel model) {
+        smsPeopleRecommendService.peopleSort(id, model, 1);
         return JsonDTO.createInstance().setStatus(JsonDTO.SUCCESS).setMsg("设置人气排序");
     }
 
     @PostMapping("/isPeopleRecommend")
-    public JsonDTO isPeopleRecommend(List<Long> ids, int recommendStatus) {
-        smsPeopleRecommendService.isPeopleRecommend(ids, recommendStatus, 1);
+    public JsonDTO isPeopleRecommend(@RequestBody IsPeopleRecommendModel model) {
+        smsPeopleRecommendService.isPeopleRecommend(model, 1);
         return JsonDTO.createInstance().setStatus(JsonDTO.SUCCESS).setMsg("设置人气推荐状态");
     }
 
@@ -65,27 +64,27 @@ public class SmsPeopleRecommendController {
 
 
     @PostMapping("/createNew")
-    public JsonDTO createNew(@RequestBody List<CreatePeopleRecommendModel> peopleRecommend) {
-        smsPeopleRecommendService.create(peopleRecommend, 2);
+    public JsonDTO createNew(@RequestBody CreatePeopleModel model) {
+        smsPeopleRecommendService.create(model, 2);
         return JsonDTO.createInstance().setStatus(JsonDTO.SUCCESS).setMsg("添加新品推荐成功");
     }
 
     @PostMapping(value = "/deleteNew")
-    public JsonDTO deleteNew(List<Long> ids) {
+    public JsonDTO deleteNew(@RequestBody DeletePeopleModel model) {
         //调用SmsPeopleRecommendService实现根据主键删除
-        smsPeopleRecommendService.delete(ids);
+        smsPeopleRecommendService.delete(model);
         return JsonDTO.createInstance().setStatus(JsonDTO.SUCCESS).setMsg("删除新品推荐");
     }
 
     @PostMapping("/sortNew/{id}")
-    public JsonDTO newSort(@PathVariable Long id, int sort) {
-        smsPeopleRecommendService.peopleSort(id, sort, 2);
+    public JsonDTO newSort(@PathVariable Long id, @RequestBody PeopleSortModel model) {
+        smsPeopleRecommendService.peopleSort(id, model, 2);
         return JsonDTO.createInstance().setStatus(JsonDTO.SUCCESS).setMsg("设置新品排序");
     }
 
     @PostMapping("/isNewRecommend")
-    public JsonDTO isNewRecommend(List<Long> ids, int recommendStatus) {
-        smsPeopleRecommendService.isPeopleRecommend(ids, recommendStatus, 2);
+    public JsonDTO isNewRecommend(@RequestBody IsPeopleRecommendModel model) {
+        smsPeopleRecommendService.isPeopleRecommend(model, 2);
         return JsonDTO.createInstance().setStatus(JsonDTO.SUCCESS).setMsg("设置新品推荐状态");
     }
 

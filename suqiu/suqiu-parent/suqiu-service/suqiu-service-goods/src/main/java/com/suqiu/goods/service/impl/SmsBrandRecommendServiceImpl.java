@@ -6,10 +6,7 @@ import com.suqiu.goods.dao.SmsBrandRecommendMapper;
 import com.suqiu.goods.pojo.SmsBrandRecommend;
 import com.suqiu.goods.pojo.SmsPeopleRecommend;
 import com.suqiu.goods.service.SmsBrandRecommendService;
-import com.suqiu.model.req.CreateNewRecommendModel;
-import com.suqiu.model.req.CreatePeopleRecommendModel;
-import com.suqiu.model.req.NewRecommendModel;
-import com.suqiu.model.req.PeopleRecommendModel;
+import com.suqiu.model.req.*;
 import com.suqiu.model.res.SmsNewRecommendListDTO;
 import com.suqiu.model.res.SmsPeopleRecommendListDTO;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -113,11 +110,11 @@ public class SmsBrandRecommendServiceImpl implements SmsBrandRecommendService {
     /**
      * 删除
      *
-     * @param ids
+     * @param model
      */
     @Override
-    public void delete(List<Long> ids) {
-        ids.forEach(id -> {
+    public void delete(DeleteNewBrandModel model) {
+        model.getIds().forEach(id -> {
             smsBrandRecommendMapper.deleteByPrimaryKey(id);
         });
     }
@@ -188,12 +185,12 @@ public class SmsBrandRecommendServiceImpl implements SmsBrandRecommendService {
     }
 
     @Override
-    public void isPeopleRecommend(List<Long> ids, int recommendStatus) {
-        if (ids != null) {
-            ids.forEach(id -> {
+    public void isPeopleRecommend(IsNewRecommendModel model) {
+        if (model.getIds() != null) {
+            model.getIds().forEach(id -> {
                 SmsBrandRecommend smsBrandRecommend = new SmsBrandRecommend();
                 smsBrandRecommend.setBrandId(id);
-                smsBrandRecommend.setRecommendStatus(recommendStatus);
+                smsBrandRecommend.setRecommendStatus(model.getRecommendStatus());
                 smsBrandRecommendMapper.updateByPrimaryKeySelective(smsBrandRecommend);
             });
         }
@@ -201,16 +198,16 @@ public class SmsBrandRecommendServiceImpl implements SmsBrandRecommendService {
     }
 
     @Override
-    public void peopleSort(Long id, int sort) {
+    public void peopleSort(Long id, NewSortBrandModel model) {
         SmsBrandRecommend smsBrandRecommend = new SmsBrandRecommend();
         smsBrandRecommend.setBrandId(id);
-        smsBrandRecommend.setSort(Long.valueOf(sort));
+        smsBrandRecommend.setSort(Long.valueOf(model.getSort()));
         smsBrandRecommendMapper.updateByPrimaryKeySelective(smsBrandRecommend);
     }
 
     @Override
-    public void create(List<CreateNewRecommendModel> newRecommend) {
-        newRecommend.forEach(item -> {
+    public void create(CreateNewBrandModel model) {
+        model.getBrandRecommend().forEach(item -> {
             SmsBrandRecommend smsBrandRecommend = new SmsBrandRecommend();
             smsBrandRecommend.setBrandId(item.getBrandId());
             // 默认推荐

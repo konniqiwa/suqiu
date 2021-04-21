@@ -5,6 +5,8 @@ import com.suqiu.goods.service.BrandService;
 import com.github.pagehelper.PageInfo;
 import com.suqiu.model.req.BrandListModel;
 import com.suqiu.model.req.CreateOrUpdateBrandModel;
+import com.suqiu.model.req.IsFactoryStatusModel;
+import com.suqiu.model.req.IsShowStatusModel;
 import entity.JsonDTO;
 import entity.Result;
 import entity.StatusCode;
@@ -34,14 +36,14 @@ public class BrandController {
     }
 
     @PostMapping("/update/showStatus")
-    public JsonDTO isShowStatus(List<Integer> ids, int showStatus) {
-        brandService.isShowStatus(ids, showStatus);
+    public JsonDTO isShowStatus(IsShowStatusModel model) {
+        brandService.isShowStatus(model);
         return JsonDTO.createInstance().setStatus(JsonDTO.SUCCESS).setMsg("修改品牌制造商状态");
     }
 
     @PostMapping("/isFactoryStatus{id}")
-    public JsonDTO isFactoryStatus(@PathVariable Long id, int isFactoryStatus) {
-        brandService.isFactoryStatus(id, isFactoryStatus);
+    public JsonDTO isFactoryStatus(@PathVariable Long id, IsFactoryStatusModel model) {
+        brandService.isFactoryStatus(id, model);
         return JsonDTO.createInstance().setStatus(JsonDTO.SUCCESS).setMsg("修改品牌制造商状态");
     }
 

@@ -4,6 +4,8 @@ import com.suqiu.goods.pojo.Category;
 import com.suqiu.goods.service.CategoryService;
 import com.github.pagehelper.PageInfo;
 import com.suqiu.model.req.BasePageModel;
+import com.suqiu.model.req.IsNevCategoryModel;
+import com.suqiu.model.req.IsShowCategoryModel;
 import com.suqiu.model.req.UpdateOrAddModel;
 import entity.JsonDTO;
 import entity.Result;
@@ -15,9 +17,9 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 /****
- * @Author:admin
+ * @Author:suqiu
  * @Description:
- * @Date 2019/6/14 0:18
+ * @Date 2020/6/14 0:18
  *****/
 
 @RestController
@@ -58,14 +60,14 @@ public class CategoryController {
     }
 
     @PostMapping("/isShow/{id}")
-    public JsonDTO isShow(@PathVariable Integer id, String isShow) {
-        categoryService.isShow(id, isShow);
+    public JsonDTO isShow(@PathVariable Integer id, IsShowCategoryModel model) {
+        categoryService.isShow(id, model);
         return JsonDTO.createInstance().setStatus(JsonDTO.SUCCESS).setMsg("修改显示状态");
     }
 
     @PostMapping(value = "/isNev/{id}")
-    public JsonDTO isNev(@PathVariable Integer id, String isNev) {
-        categoryService.isNev(id, isNev);
+    public JsonDTO isNev(@PathVariable Integer id, IsNevCategoryModel model) {
+        categoryService.isNev(id, model);
         return JsonDTO.createInstance().setStatus(JsonDTO.SUCCESS).setMsg("修改导航状态");
     }
 

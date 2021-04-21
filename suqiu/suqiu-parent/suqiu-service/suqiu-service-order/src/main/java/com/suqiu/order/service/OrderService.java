@@ -1,5 +1,8 @@
 package com.suqiu.order.service;
 
+import com.suqiu.model.req.CloseOrderModel;
+import com.suqiu.model.req.DeleteOrderModel;
+import com.suqiu.model.req.DeliveryOrderModel;
 import com.suqiu.order.pojo.Order;
 import com.github.pagehelper.PageInfo;
 
@@ -38,9 +41,8 @@ public interface OrderService {
 
     /***
      * 删除Order
-     * @param id
      */
-    void delete(String id);
+    void delete(DeleteOrderModel model);
 
     /***
      * 修改Order数据
@@ -56,10 +58,11 @@ public interface OrderService {
 
     /**
      * 根据ID查询Order
+     *
      * @param id
      * @return
      */
-     Order findById(String id);
+    Order findById(String id);
 
     /***
      * 查询所有Order
@@ -69,14 +72,31 @@ public interface OrderService {
 
     /**
      * 更新订单状态
+     *
      * @param outtradeno
      * @param transaction_id
      */
-    void updateStatus(String outtradeno,String paytime, String transaction_id) throws Exception;
+    void updateStatus(String outtradeno, String paytime, String transaction_id) throws Exception;
 
     /**
      * 删除订单
+     *
      * @param outtradeno
      */
     void deleteOrder(String outtradeno);
+
+
+    /**
+     * 关闭订单
+     *
+     * @param closeOrderModel
+     */
+    void closeOrder(CloseOrderModel closeOrderModel);
+
+    /**
+     * 批量发货
+     *
+     * @param model
+     */
+    void delivery(DeliveryOrderModel model);
 }

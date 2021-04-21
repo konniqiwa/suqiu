@@ -6,6 +6,8 @@ import com.suqiu.goods.service.CategoryService;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.suqiu.model.req.BasePageModel;
+import com.suqiu.model.req.IsNevCategoryModel;
+import com.suqiu.model.req.IsShowCategoryModel;
 import com.suqiu.model.req.UpdateOrAddModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -259,18 +261,18 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
-    public void isNev(Integer id, String isNev) {
+    public void isNev(Integer id, IsNevCategoryModel model) {
         Category category = new Category();
         category.setId(id);
-        category.setIsMenu(isNev);
+        category.setIsMenu(model.getIsNev());
         categoryMapper.updateByPrimaryKey(category);
     }
 
     @Override
-    public void isShow(Integer id, String isShow) {
+    public void isShow(Integer id, IsShowCategoryModel model) {
         Category category = new Category();
         category.setId(id);
-        category.setIsShow(isShow);
+        category.setIsShow(model.getIsShow());
         categoryMapper.updateByPrimaryKey(category);
     }
 

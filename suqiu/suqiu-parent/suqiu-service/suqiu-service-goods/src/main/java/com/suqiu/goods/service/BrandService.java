@@ -4,6 +4,8 @@ import com.suqiu.goods.pojo.Brand;
 import com.github.pagehelper.PageInfo;
 import com.suqiu.model.req.BrandListModel;
 import com.suqiu.model.req.CreateOrUpdateBrandModel;
+import com.suqiu.model.req.IsFactoryStatusModel;
+import com.suqiu.model.req.IsShowStatusModel;
 
 import java.util.List;
 
@@ -98,17 +100,16 @@ public interface BrandService {
      * 修改品牌制造商状态
      *
      * @param id
-     * @param isFactoryStatus
+     * @param model
      */
-    void isFactoryStatus(Long id, int isFactoryStatus);
+    void isFactoryStatus(Long id, IsFactoryStatusModel model);
 
     /**
      * 是否显示品牌
      *
-     * @param ids
-     * @param showStatus
+     * @param model
      */
-    void isShowStatus(List<Integer> ids, int showStatus);
+    void isShowStatus(IsShowStatusModel model);
 
     /**
      * 获取品牌详情

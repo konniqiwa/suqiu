@@ -2,10 +2,7 @@ package com.suqiu.goods.service;
 
 import com.github.pagehelper.PageInfo;
 import com.suqiu.goods.pojo.SmsBrandRecommend;
-import com.suqiu.model.req.CreateNewRecommendModel;
-import com.suqiu.model.req.CreatePeopleRecommendModel;
-import com.suqiu.model.req.NewRecommendModel;
-import com.suqiu.model.req.PeopleRecommendModel;
+import com.suqiu.model.req.*;
 import com.suqiu.model.res.SmsNewRecommendListDTO;
 import com.suqiu.model.res.SmsPeopleRecommendListDTO;
 
@@ -44,9 +41,9 @@ public interface SmsBrandRecommendService {
 
     /***
      * 删除SmsBrandRecommend
-     * @param id
+     * @param model
      */
-    void delete(List<Long> id);
+    void delete(DeleteNewBrandModel model);
 
     /***
      * 修改SmsBrandRecommend数据
@@ -86,24 +83,23 @@ public interface SmsBrandRecommendService {
     /**
      * 设置推荐状态
      *
-     * @param ids
-     * @param recommendStatus
+     * @param model
      */
-    void isPeopleRecommend(List<Long> ids, int recommendStatus);
+    void isPeopleRecommend(IsNewRecommendModel model);
 
     /**
      * 设置排序
      *
      * @param id
-     * @param sort
+     * @param model
      */
-    void peopleSort(Long id, int sort);
+    void peopleSort(Long id, NewSortBrandModel model);
 
 
     /**
      * 增加推荐
      *
-     * @param peopleRecommend
+     * @param model
      */
-    void create(List<CreateNewRecommendModel> peopleRecommend);
+    void create(CreateNewBrandModel model);
 }
