@@ -11,6 +11,7 @@ import com.suqiu.model.req.UpdateStatusModel;
 import com.suqiu.model.res.SpuListDTO;
 import com.suqiu.model.res.SpuListTotalDTO;
 import com.suqiu.model.res.SpuSpecDTO;
+import com.suqiu.model.res.SpuSpecParamDTO;
 import entity.IdWorker;
 import entity.SuqiuBeanUtils;
 import org.apache.ibatis.annotations.Update;
@@ -506,5 +507,21 @@ public class SpuServiceImpl implements SpuService {
         return spuListTotalDTO;
     }
 
-
+    @Override
+    public List<SpuSpecParamDTO> getSpuSpecParam(Long id) {
+        List<SpuSpecParamDTO> list = new ArrayList<>();
+        Example example = new Example(Sku.class);
+        example.createCriteria().andEqualTo("spuId",id);
+        List<Sku> skus = skuMapper.selectByExample(example);
+        skus.forEach(sku -> {
+            SpuSpecParamDTO  spuSpecParamDTO = new SpuSpecParamDTO();
+            spuSpecParamDTO.setId(sku.getId());
+            spuSpecParamDTO.setPrice(sku.getPrice());
+            spuSpecParamDTO.setStock(sku.getNum());
+            spuSpecParamDTO.setLowStock(String.valueOf(sku.getAlertNum()));
+            spuSpecParamDTO.setSpData(sku.getSpec());
+            list.add(spuSpecParamDTO);
+        });
+        return list;
+    }
 }

@@ -9,6 +9,7 @@ import com.suqiu.model.req.UpdateStatusModel;
 import com.suqiu.model.res.SpuListDTO;
 import com.suqiu.model.res.SpuListTotalDTO;
 import com.suqiu.model.res.SpuSpecDTO;
+import com.suqiu.model.res.SpuSpecParamDTO;
 import entity.JsonDTO;
 import entity.Result;
 import entity.StatusCode;
@@ -29,6 +30,12 @@ public class SpuController {
 
     @Autowired
     private SpuService spuService;
+
+    @GetMapping("/{id}")
+    public JsonDTO getSpuSpecParam(@PathVariable Long id) {
+        List<SpuSpecParamDTO> list = spuService.getSpuSpecParam(id);
+        return JsonDTO.createInstance().setStatus(JsonDTO.SUCCESS).setMsg("获取sku参数").setData(list);
+    }
 
 
     @GetMapping("/getSpuSpec/{id}")
@@ -128,17 +135,6 @@ public class SpuController {
         return new Result(true, StatusCode.OK, "添加成功");
     }
 
-    /***
-     * 根据ID查询Spu数据
-     * @param id
-     * @return
-     */
-    @GetMapping("/{id}")
-    public Result<Spu> findById(@PathVariable Long id) {
-        //调用SpuService实现根据主键查询Spu
-        Spu spu = spuService.findById(id);
-        return new Result<Spu>(true, StatusCode.OK, "查询成功", spu);
-    }
 
     /***
      * 查询Spu全部数据

@@ -8,6 +8,7 @@ import com.suqiu.model.req.UpdateStatusModel;
 import com.suqiu.model.res.SpuListDTO;
 import com.suqiu.model.res.SpuListTotalDTO;
 import com.suqiu.model.res.SpuSpecDTO;
+import com.suqiu.model.res.SpuSpecParamDTO;
 
 import java.util.List;
 
@@ -122,4 +123,12 @@ public interface SpuService {
     void restoreSpu(Long id);
 
     SpuListTotalDTO findBySearch(SpuListModel reqModel) throws Exception;
+
+    /**
+     * 获取规格参数
+     *
+     * @param id
+     * @return
+     */
+    List<SpuSpecParamDTO> getSpuSpecParam(Long id);
 }
