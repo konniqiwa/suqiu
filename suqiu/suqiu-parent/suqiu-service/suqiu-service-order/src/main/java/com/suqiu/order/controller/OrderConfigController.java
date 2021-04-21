@@ -26,8 +26,8 @@ public class OrderConfigController {
     @Autowired
     private OrderConfigService orderConfigService;
 
-    @PostMapping
-    public JsonDTO updateOrderConfig(UpdateOrderConfigModel model) {
+    @PostMapping("/updateOrderConfig")
+    public JsonDTO updateOrderConfig(@RequestBody UpdateOrderConfigModel model) {
         orderConfigService.updateOrderConfig(model);
         return JsonDTO.createInstance().setStatus(JsonDTO.SUCCESS).setMsg("修改订单配置时间");
     }
