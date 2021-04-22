@@ -3,17 +3,19 @@ package com.suqiu.order.controller;
 import com.suqiu.model.req.CloseOrderModel;
 import com.suqiu.model.req.DeleteOrderModel;
 import com.suqiu.model.req.DeliveryOrderModel;
-import com.suqiu.order.pojo.Order;
+import com.suqiu.order.pojo.*;
+import com.suqiu.order.service.OrderItemService;
 import com.suqiu.order.service.OrderService;
 import com.github.pagehelper.PageInfo;
-import entity.JsonDTO;
-import entity.Result;
-import entity.StatusCode;
-import entity.TokenDecode;
+import entity.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 /****
  * @Author:admin
@@ -28,6 +30,9 @@ public class OrderController {
 
     @Autowired
     private OrderService orderService;
+
+    @Autowired
+    private OrderItemService orderItemService;
 
     @PostMapping("/delivery")
     public JsonDTO delivery(@RequestBody DeliveryOrderModel model) {
@@ -124,12 +129,101 @@ public class OrderController {
      * @param id
      * @return
      */
+//    @GetMapping("/{id}")
+//    public Result<Order> findById(@PathVariable String id) {
+//        //调用OrderService实现根据主键查询Order
+//        Order order = orderService.findById(id);
+//        return new Result<Order>(true, StatusCode.OK, "查询成功", order);
+//    }
+
+
+    /***
+     * 根据ID查看订单 zero
+     * @param id
+     * @return
+     */
     @GetMapping("/{id}")
-    public Result<Order> findById(@PathVariable String id) {
+    public JsonDTO findOrderById(@PathVariable String id){
         //调用OrderService实现根据主键查询Order
         Order order = orderService.findById(id);
-        return new Result<Order>(true, StatusCode.OK, "查询成功", order);
+
+        OrderItem orderItem = new OrderItem();
+        orderItem.setOrderId(order.getId());
+        List<OrderItem> list = orderItemService.findList(orderItem);
+
+        OmsOrderDetail orderDetailResult = new OmsOrderDetail();
+
+        orderDetailResult.setId(Long.parseLong(order.getId()));
+        orderDetailResult.setOrderSn(order.getId());
+        orderDetailResult.setCreateTime(order.getCreateTime());
+        orderDetailResult.setMemberUsername(order.getUsername());
+        orderDetailResult.setTotalAmount(new BigDecimal(order.getTotalMoney()));
+        orderDetailResult.setPayAmount(new BigDecimal(order.getPayMoney()));
+        orderDetailResult.setFreightAmount(new BigDecimal(order.getPostFee()));
+        orderDetailResult.setPromotionAmount(new BigDecimal(order.getPreMoney()));
+        orderDetailResult.setIntegrationAmount(new BigDecimal(0));
+        orderDetailResult.setCouponAmount(new BigDecimal(0));
+        orderDetailResult.setDiscountAmount(new BigDecimal(0));
+        orderDetailResult.setPayType(Integer.parseInt(order.getPayType()));//支付方式（要转换）
+        orderDetailResult.setSourceType(Integer.parseInt(order.getSourceType()));//订单来源
+        orderDetailResult.setStatus(Integer.parseInt(order.getOrderStatus()));
+        orderDetailResult.setOrderType(0);//写死为正常订单
+        orderDetailResult.setDeliveryCompany("");
+        orderDetailResult.setDeliverySn("");
+        orderDetailResult.setAutoConfirmDay(15);
+        orderDetailResult.setIntegration(0);
+        orderDetailResult.setGrowth(0);
+        orderDetailResult.setPromotionInfo("");
+        orderDetailResult.setReceiverName(order.getReceiverContact());
+        orderDetailResult.setReceiverPhone(order.getReceiverMobile());
+        orderDetailResult.setReceiverPostCode("");
+        orderDetailResult.setReceiverProvince("");
+        orderDetailResult.setReceiverCity("");
+        orderDetailResult.setReceiverRegion("");
+        orderDetailResult.setReceiverDetailAddress(order.getReceiverAddress());
+        orderDetailResult.setNote(order.getBuyerMessage());
+        orderDetailResult.setConfirmStatus(Integer.parseInt(order.getConsignStatus()));
+        orderDetailResult.setDeleteStatus(0);
+        orderDetailResult.setModifyTime(order.getUpdateTime());
+
+//        List<OrderItem> list
+
+        List<OmsOrderItem> orderItemList = new ArrayList<>();
+        List<OmsOrderOperateHistory> historyList = new ArrayList<>();
+
+        if (CommonUtil.isNotNull(list)) {
+            list.forEach(t -> {
+                OmsOrderItem omsOrderItem = new OmsOrderItem();
+                omsOrderItem.setId(Long.parseLong(t.getId()));
+                omsOrderItem.setOrderId(Long.parseLong(t.getOrderId()));
+                omsOrderItem.setProductId(Long.parseLong(t.getName()));
+                omsOrderItem.setProductBrand("");
+                omsOrderItem.setProductPrice(new BigDecimal(t.getPrice()));
+                omsOrderItem.setProductQuantity(t.getNum());
+                omsOrderItem.setProductAttr("[{\"key\":\"颜色\",\"value\":\"默认\"},{\"key\":\"规格\",\"value\":\"默认\"}]");
+
+                orderItemList.add(omsOrderItem);
+
+                OmsOrderOperateHistory history = new OmsOrderOperateHistory();
+                history.setId(Long.parseLong(t.getId()));
+                history.setOrderId(Long.parseLong(t.getOrderId()));
+                history.setOperateMan("林庆兴");
+                history.setCreateTime(order.getCreateTime());
+                history.setOrderStatus(Integer.parseInt(order.getOrderStatus()));//订单状态
+                history.setNote(order.getBuyerMessage());
+
+                historyList.add(history);
+
+            });
+            Map<String, List<OrderItem>> orderItemMap = list.stream().collect(Collectors.groupingBy(OrderItem::getOrderId));
+        }
+        orderDetailResult.setOrderItemList(orderItemList);
+        orderDetailResult.setHistoryList(historyList);
+
+//        return JsonDTO.createInstance().setStatus(JsonDTO.SUCCESS).setMsg("查询订单成功");
+        return JsonDTO.createInstance().put("data", orderDetailResult).setStatus(JsonDTO.SUCCESS).setMsg("查询订单成功");
     }
+
 
     /***
      * 查询Order全部数据
