@@ -17,6 +17,11 @@
 
     <dependencies>
 
+        <dependency>
+            <groupId>com.suqiu</groupId>
+            <artifactId>suqiu-common</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
         <!--client openg start-web mybatis mysql pagehler -->
 
         <!--依赖来自定义的goods微服务的POJO 和feign-->
