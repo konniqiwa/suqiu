@@ -206,19 +206,22 @@ public class BrandServiceImpl implements BrandService {
     }
 
     @Override
-    public void isFactoryStatus(Long id, IsFactoryStatusModel model) {
-        Brand brand = new Brand();
-        brand.setId(Math.toIntExact(id));
-        brand.setFactoryStatus(model.getIsFactoryStatus());
-        brandMapper.updateByPrimaryKeySelective(brand);
+    public void isFactoryStatus(List<Long> ids, int factoryStatus) {
+        ids.forEach(id -> {
+            Brand brand = new Brand();
+            brand.setId(Math.toIntExact(id));
+            brand.setFactoryStatus(factoryStatus);
+            brandMapper.updateByPrimaryKeySelective(brand);
+        });
+
     }
 
     @Override
-    public void isShowStatus(IsShowStatusModel model) {
-        model.getIds().forEach(id -> {
+    public void isShowStatus(List<Integer> ids, int showStatus) {
+        ids.forEach(id -> {
             Brand brand = new Brand();
             brand.setId(Math.toIntExact(id));
-            brand.setShowStatus(model.getShowStatus());
+            brand.setShowStatus(showStatus);
             brandMapper.updateByPrimaryKeySelective(brand);
         });
     }

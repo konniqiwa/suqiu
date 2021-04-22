@@ -4,7 +4,7 @@ import com.github.pagehelper.PageInfo;
 import com.suqiu.goods.pojo.SmsPeopleRecommend;
 import com.suqiu.goods.service.SmsPeopleRecommendService;
 import com.suqiu.model.req.*;
-import com.suqiu.model.res.SmsPeopleRecommendListDTO;
+import com.suqiu.goods.pojo.SmsPeopleRecommendListDTO;
 import entity.JsonDTO;
 import entity.Result;
 import entity.StatusCode;
@@ -49,8 +49,8 @@ public class SmsPeopleRecommendController {
     }
 
     @PostMapping("/isPeopleRecommend")
-    public JsonDTO isPeopleRecommend(@RequestBody IsPeopleRecommendModel model) {
-        smsPeopleRecommendService.isPeopleRecommend(model, 1);
+    public JsonDTO isPeopleRecommend(@RequestParam List<Long> ids, @RequestParam int recommendStatus) {
+        smsPeopleRecommendService.isPeopleRecommend(ids, recommendStatus,1);
         return JsonDTO.createInstance().setStatus(JsonDTO.SUCCESS).setMsg("设置人气推荐状态");
     }
 
@@ -83,8 +83,8 @@ public class SmsPeopleRecommendController {
     }
 
     @PostMapping("/isNewRecommend")
-    public JsonDTO isNewRecommend(@RequestBody IsPeopleRecommendModel model) {
-        smsPeopleRecommendService.isPeopleRecommend(model, 2);
+    public JsonDTO isNewRecommend(@RequestParam List<Long> ids, @RequestParam int recommendStatus) {
+        smsPeopleRecommendService.isPeopleRecommend(ids, recommendStatus,2);
         return JsonDTO.createInstance().setStatus(JsonDTO.SUCCESS).setMsg("设置新品推荐状态");
     }
 

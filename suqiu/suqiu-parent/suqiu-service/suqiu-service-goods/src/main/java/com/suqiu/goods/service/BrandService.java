@@ -102,14 +102,14 @@ public interface BrandService {
      * @param id
      * @param model
      */
-    void isFactoryStatus(Long id, IsFactoryStatusModel model);
+    void isFactoryStatus(List<Long> ids, int isFactoryStatus);
 
     /**
      * 是否显示品牌
      *
      * @param model
      */
-    void isShowStatus(IsShowStatusModel model);
+    void isShowStatus(List<Integer> ids, int showStatus);
 
     /**
      * 获取品牌详情

@@ -69,7 +69,7 @@ public class Spu implements Serializable{
 	private Integer commentNum;//评论数
 
     @Column(name = "is_marketable")
-	private String isMarketable;//是否上架
+	private Integer isMarketable;//是否上架
 
     @Column(name = "is_enable_spec")
 	private String isEnableSpec;//是否启用规格
@@ -79,6 +79,7 @@ public class Spu implements Serializable{
 
     @Column(name = "status")
 	private String status;//审核状态
+
 
 	//get方法
 	public Long getId() {
@@ -243,12 +244,12 @@ public class Spu implements Serializable{
 		this.commentNum = commentNum;
 	}
 	//get方法
-	public String getIsMarketable() {
+	public Integer getIsMarketable() {
 		return isMarketable;
 	}
 
 	//set方法
-	public void setIsMarketable(String isMarketable) {
+	public void setIsMarketable(Integer isMarketable) {
 		this.isMarketable = isMarketable;
 	}
 	//get方法

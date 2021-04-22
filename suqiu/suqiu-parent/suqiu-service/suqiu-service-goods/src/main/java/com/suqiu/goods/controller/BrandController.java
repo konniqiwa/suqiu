@@ -36,14 +36,14 @@ public class BrandController {
     }
 
     @PostMapping("/update/showStatus")
-    public JsonDTO isShowStatus(IsShowStatusModel model) {
-        brandService.isShowStatus(model);
-        return JsonDTO.createInstance().setStatus(JsonDTO.SUCCESS).setMsg("修改品牌制造商状态");
+    public JsonDTO isShowStatus(@RequestParam List<Integer> ids, @RequestParam int showStatus) {
+        brandService.isShowStatus(ids, showStatus);
+        return JsonDTO.createInstance().setStatus(JsonDTO.SUCCESS).setMsg("是否显示");
     }
 
-    @PostMapping("/isFactoryStatus{id}")
-    public JsonDTO isFactoryStatus(@PathVariable Long id, IsFactoryStatusModel model) {
-        brandService.isFactoryStatus(id, model);
+    @PostMapping("/isFactoryStatus")
+    public JsonDTO isFactoryStatus(@RequestParam List<Long> ids, @RequestParam int factoryStatus) {
+        brandService.isFactoryStatus(ids, factoryStatus);
         return JsonDTO.createInstance().setStatus(JsonDTO.SUCCESS).setMsg("修改品牌制造商状态");
     }
 

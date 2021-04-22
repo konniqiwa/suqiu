@@ -43,7 +43,7 @@ public class SpuListDTO implements Serializable {
 
     private Integer commentNum;//评论数
 
-    private String isMarketable;//是否上架
+    private Integer isMarketable;//是否上架
 
     private String isEnableSpec;//是否启用规格
 
@@ -53,7 +53,27 @@ public class SpuListDTO implements Serializable {
 
     private String brandName;//品牌名称
 
+    private Integer newStatus;
+
+    private Integer peopleStatus;
+
     private Integer total;
+
+    public Integer getPeopleStatus() {
+        return peopleStatus;
+    }
+
+    public void setPeopleStatus(Integer peopleStatus) {
+        this.peopleStatus = peopleStatus;
+    }
+
+    public Integer getNewStatus() {
+        return newStatus;
+    }
+
+    public void setNewStatus(Integer newStatus) {
+        this.newStatus = newStatus;
+    }
 
     public Integer getTotal() {
         return total;
@@ -207,11 +227,11 @@ public class SpuListDTO implements Serializable {
         this.commentNum = commentNum;
     }
 
-    public String getIsMarketable() {
+    public Integer getIsMarketable() {
         return isMarketable;
     }
 
-    public void setIsMarketable(String isMarketable) {
+    public void setIsMarketable(Integer isMarketable) {
         this.isMarketable = isMarketable;
     }
 

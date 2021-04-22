@@ -6,7 +6,7 @@ import com.suqiu.goods.dao.SmsPeopleRecommendMapper;
 import com.suqiu.goods.pojo.SmsPeopleRecommend;
 import com.suqiu.goods.service.SmsPeopleRecommendService;
 import com.suqiu.model.req.*;
-import com.suqiu.model.res.SmsPeopleRecommendListDTO;
+import com.suqiu.goods.pojo.SmsPeopleRecommendListDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
@@ -195,15 +195,15 @@ public class SmsPeopleRecommendServiceImpl implements SmsPeopleRecommendService 
     }
 
     @Override
-    public void isPeopleRecommend(IsPeopleRecommendModel model, int type) {
-        if (model.getIds() != null) {
-            model.getIds().forEach(id -> {
+    public void isPeopleRecommend(List<Long> ids, int recommendStatus, int type) {
+        if (ids != null) {
+            ids.forEach(id -> {
                 SmsPeopleRecommend smsPeopleRecommend = new SmsPeopleRecommend();
                 smsPeopleRecommend.setProductId(id);
                 if (type == 1) {
-                    smsPeopleRecommend.setPeopleRecommendStatus(model.getRecommendStatus());
+                    smsPeopleRecommend.setPeopleRecommendStatus(recommendStatus);
                 } else {
-                    smsPeopleRecommend.setNewRecommendStatus(model.getRecommendStatus());
+                    smsPeopleRecommend.setNewRecommendStatus(recommendStatus);
                 }
                 smsPeopleRecommendMapper.updateByPrimaryKeySelective(smsPeopleRecommend);
             });
