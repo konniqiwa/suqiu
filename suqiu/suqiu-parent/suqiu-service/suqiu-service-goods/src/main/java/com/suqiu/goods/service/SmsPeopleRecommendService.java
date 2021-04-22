@@ -3,7 +3,8 @@ package com.suqiu.goods.service;
 import com.github.pagehelper.PageInfo;
 import com.suqiu.goods.pojo.SmsPeopleRecommend;
 import com.suqiu.model.req.*;
-import com.suqiu.model.res.SmsPeopleRecommendListDTO;
+import com.suqiu.goods.pojo.SmsPeopleRecommendListDTO;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
@@ -87,7 +88,7 @@ public interface SmsPeopleRecommendService {
      * @param model
      * @param type
      */
-    void isPeopleRecommend(IsPeopleRecommendModel model, int type);
+    void isPeopleRecommend(List<Long> ids, int recommendStatus, int type);
 
     /**
      * 设置排序

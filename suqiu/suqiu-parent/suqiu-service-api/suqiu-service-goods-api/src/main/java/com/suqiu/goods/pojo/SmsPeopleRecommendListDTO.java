@@ -1,6 +1,4 @@
-package com.suqiu.model.res;
-
-import com.suqiu.goods.pojo.SmsPeopleRecommend;
+package com.suqiu.goods.pojo;
 
 import java.io.Serializable;
 import java.util.List;

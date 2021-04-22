@@ -1,5 +1,8 @@
 package com.suqiu.goods.service;
 
+import com.suqiu.goods.model.req.AuditSpuModel;
+import com.suqiu.goods.model.req.LogicDeleteSpuModel;
+import com.suqiu.goods.model.req.PullSpuModel;
 import com.suqiu.goods.pojo.Goods;
 import com.suqiu.goods.pojo.Spu;
 import com.github.pagehelper.PageInfo;
@@ -9,6 +12,7 @@ import com.suqiu.model.res.SpuListDTO;
 import com.suqiu.model.res.SpuListTotalDTO;
 import com.suqiu.model.res.SpuSpecDTO;
 import com.suqiu.model.res.SpuSpecParamDTO;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
@@ -108,16 +112,16 @@ public interface SpuService {
 
     Goods findGoodsById(Long id);
 
-    void auditSpu(Long id);
+    void auditSpu(List<Long> ids, int publishStatus);
 
     /**
      * 下架
      *
-     * @param id
+     * @param model
      */
-    void pullSpu(Long id);
+    void pullSpu(PullSpuModel model);
 
-    void logicDeleteSpu(Long id);
+    void logicDeleteSpu(List<Long> ids,int deleteStatus);
 
 
     void restoreSpu(Long id);

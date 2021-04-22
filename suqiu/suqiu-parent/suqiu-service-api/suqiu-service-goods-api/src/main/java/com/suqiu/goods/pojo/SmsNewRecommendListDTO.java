@@ -1,4 +1,4 @@
-package com.suqiu.model.res;
+package com.suqiu.goods.pojo;
 
 import com.suqiu.goods.pojo.SmsBrandRecommend;
 import com.suqiu.goods.pojo.SmsPeopleRecommend;

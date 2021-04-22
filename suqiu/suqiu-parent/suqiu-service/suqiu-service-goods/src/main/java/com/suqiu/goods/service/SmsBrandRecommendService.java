@@ -3,8 +3,7 @@ package com.suqiu.goods.service;
 import com.github.pagehelper.PageInfo;
 import com.suqiu.goods.pojo.SmsBrandRecommend;
 import com.suqiu.model.req.*;
-import com.suqiu.model.res.SmsNewRecommendListDTO;
-import com.suqiu.model.res.SmsPeopleRecommendListDTO;
+import com.suqiu.goods.pojo.SmsNewRecommendListDTO;
 
 import java.util.List;
 

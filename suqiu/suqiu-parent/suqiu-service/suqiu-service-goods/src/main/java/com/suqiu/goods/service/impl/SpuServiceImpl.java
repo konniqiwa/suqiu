@@ -2,6 +2,9 @@ package com.suqiu.goods.service.impl;
 
 import com.alibaba.fastjson.JSON;
 import com.suqiu.goods.dao.*;
+import com.suqiu.goods.model.req.AuditSpuModel;
+import com.suqiu.goods.model.req.LogicDeleteSpuModel;
+import com.suqiu.goods.model.req.PullSpuModel;
 import com.suqiu.goods.pojo.*;
 import com.suqiu.goods.service.SpuService;
 import com.github.pagehelper.PageHelper;
@@ -18,6 +21,7 @@ import org.apache.ibatis.annotations.Update;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
+import org.springframework.web.bind.annotation.RequestParam;
 import tk.mybatis.mapper.entity.Example;
 
 import java.util.*;
@@ -56,7 +60,7 @@ public class SpuServiceImpl implements SpuService {
 
         List<SpuSpecDTO> specs = new ArrayList<>();
         Spu spu = spuMapper.selectByPrimaryKey(id);
-        HashMap<String,String> map = (HashMap<String, String>) JSON.parseObject(spu.getSpecItems(), Map.class);
+        HashMap<String, String> map = (HashMap<String, String>) JSON.parseObject(spu.getSpecItems(), Map.class);
         Set<String> strings = map.keySet();
         Iterator<String> iterator = strings.iterator();
         while (iterator.hasNext()) {
@@ -386,51 +390,54 @@ public class SpuServiceImpl implements SpuService {
     }
 
     @Override
-    public void auditSpu(Long id) {
-        //update tb_spu set status=1,is_marketable=1 where is_delete=0 and id = ?
+    public void auditSpu(List<Long> ids, int publishStatus) {
+        ids.forEach(id -> {
+            //update tb_spu set status=1,is_marketable=1 where is_delete=0 and id = ?
 
-        //先判断是否已经被删除
-        Spu spu = spuMapper.selectByPrimaryKey(id);
-        if (spu == null || spu.getIsDelete().equals("1")) {//已经被删除了 或者商品部存在
-            throw new RuntimeException("商品不存在或者已经删除");
-        }
-        //审核商品
-        spu.setStatus("1");//已经审核
-        spu.setIsMarketable("1");//自动上架
-        spuMapper.updateByPrimaryKeySelective(spu);
+            //先判断是否已经被删除
+            Spu spu = spuMapper.selectByPrimaryKey(id);
+            if (spu == null || spu.getIsDelete().equals("1")) {//已经被删除了 或者商品部存在
+                throw new RuntimeException("商品不存在或者已经删除");
+            }
+            //审核商品
+            spu.setStatus("1");//已经审核
+            spu.setIsMarketable(publishStatus);//自动上架或下架
+            spuMapper.updateByPrimaryKeySelective(spu);
+            System.out.println("商品上架下架成功");
+        });
     }
 
     @Override
-    public void pullSpu(Long id) {
-        //update tb_spu set is_marketable=0 where is_delete=0 and id = ? and is_marketable=1 and status=1
-        Spu spu = spuMapper.selectByPrimaryKey(id);
-        if (spu == null || spu.getIsDelete().equals("1")) {//已经被删除了 或者商品部存在
-            throw new RuntimeException("商品不存在或者已经删除");
-        }
+    public void pullSpu(PullSpuModel model) {
+        model.getIds().forEach(id -> {
+            //update tb_spu set is_marketable=0 where is_delete=0 and id = ? and is_marketable=1 and status=1
+            Spu spu = spuMapper.selectByPrimaryKey(id);
+            if (spu == null || spu.getIsDelete().equals("1")) {//已经被删除了 或者商品部存在
+                throw new RuntimeException("商品不存在或者已经删除");
+            }
 
-        if (!spu.getStatus().equals("1") || !spu.getIsMarketable().equals("1")) {
-            throw new RuntimeException("商品必须要审核或者商品必须要是上架的状态");
-        }
+            if (!spu.getStatus().equals("1") || !spu.getIsMarketable().equals("1")) {
+                throw new RuntimeException("商品必须要审核或者商品必须要是上架的状态");
+            }
 
-        spu.setIsMarketable("0");
-        spuMapper.updateByPrimaryKeySelective(spu);
-
+            spu.setIsMarketable(0);
+            spuMapper.updateByPrimaryKeySelective(spu);
+        });
     }
 
     @Override
-    public void logicDeleteSpu(Long id) {
-        // update set is_delete=1 where id =? and is_delete=0
-        Spu spu = spuMapper.selectByPrimaryKey(id);
-        if (spu == null) {
-            throw new RuntimeException("商品不存在");
-        }
+    public void logicDeleteSpu(List<Long> ids, int deleteStatus) {
+        ids.forEach(id -> {
+            // update set is_delete=1 where id =? and is_delete=0
+            Spu spu = spuMapper.selectByPrimaryKey(id);
+            if (spu == null) {
+                throw new RuntimeException("商品不存在");
+            }
+            spu.setIsDelete(String.valueOf(deleteStatus));
+            spu.setStatus("0");
+            spuMapper.updateByPrimaryKeySelective(spu);
+        });
 
-        if (spu.getIsMarketable().equals("1")) {
-            throw new RuntimeException("商品还没下架,不能删除");
-        }
-        spu.setIsDelete("1");
-        spu.setStatus("0");
-        spuMapper.updateByPrimaryKeySelective(spu);
     }
 
     @Override
@@ -464,6 +471,7 @@ public class SpuServiceImpl implements SpuService {
         }
         Example exmaple = new Example(Spu.class);
         Example.Criteria criteria = exmaple.createCriteria();
+        criteria.andEqualTo("isDelete", "0");
         if (reqModel.getKeyword() != null) {
             criteria.andLike("name", String.format("%%%s%%", reqModel.getKeyword()));
         }
@@ -496,6 +504,11 @@ public class SpuServiceImpl implements SpuService {
 
         List<SpuListDTO> spuListDTOS = SuqiuBeanUtils.copyListProperties(spus, SpuListDTO.class);
         spuListDTOS.forEach(spu -> {
+            SmsPeopleRecommend smsPeopleRecommend = smsPeopleRecommendMapper.selectByPrimaryKey(spu.getId());
+            if (smsPeopleRecommend != null) {
+                spu.setNewStatus(smsPeopleRecommend.getNewRecommendStatus());
+                spu.setPeopleStatus(smsPeopleRecommend.getPeopleRecommendStatus());
+            }
             // 设置品牌名
             Brand brand = new Brand();
             brand.setId(spu.getBrandId());
@@ -511,10 +524,10 @@ public class SpuServiceImpl implements SpuService {
     public List<SpuSpecParamDTO> getSpuSpecParam(Long id) {
         List<SpuSpecParamDTO> list = new ArrayList<>();
         Example example = new Example(Sku.class);
-        example.createCriteria().andEqualTo("spuId",id);
+        example.createCriteria().andEqualTo("spuId", id);
         List<Sku> skus = skuMapper.selectByExample(example);
         skus.forEach(sku -> {
-            SpuSpecParamDTO  spuSpecParamDTO = new SpuSpecParamDTO();
+            SpuSpecParamDTO spuSpecParamDTO = new SpuSpecParamDTO();
             spuSpecParamDTO.setId(sku.getId());
             spuSpecParamDTO.setPrice(sku.getPrice());
             spuSpecParamDTO.setStock(sku.getNum());

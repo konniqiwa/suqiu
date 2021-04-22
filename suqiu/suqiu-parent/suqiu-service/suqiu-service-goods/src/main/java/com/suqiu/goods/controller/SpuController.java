@@ -1,5 +1,8 @@
 package com.suqiu.goods.controller;
 
+import com.suqiu.goods.model.req.AuditSpuModel;
+import com.suqiu.goods.model.req.LogicDeleteSpuModel;
+import com.suqiu.goods.model.req.PullSpuModel;
 import com.suqiu.goods.pojo.Goods;
 import com.suqiu.goods.pojo.Spu;
 import com.suqiu.goods.service.SpuService;
@@ -167,25 +170,24 @@ public class SpuController {
     /**
      * //审核商品 上架
      *
-     * @param id spu的ID
      * @return
      */
-    @PostMapping("/updateIsMarketable/{id}")
-    public Result auditSpu(@PathVariable(name = "id") Long id) {
-        spuService.auditSpu(id);
-        return new Result(true, StatusCode.OK, "审核通过");
+    @PostMapping("/updateIsMarketable")
+    public JsonDTO auditSpu(@RequestParam List<Long> ids, @RequestParam int publishStatus) {
+        spuService.auditSpu(ids, publishStatus);
+        return JsonDTO.createInstance().setStatus(JsonDTO.SUCCESS).setMsg("设置商品上下架状态");
     }
 
-    @PutMapping("/updateNotMarketable{id}")
-    public Result pullSpu(@PathVariable(name = "id") Long id) {
-        spuService.pullSpu(id);
-        return new Result(true, StatusCode.OK, "下架成功");
+    @PostMapping("/updateNotMarketable")
+    public JsonDTO pullSpu(@RequestBody PullSpuModel model) {
+        spuService.pullSpu(model);
+        return JsonDTO.createInstance().setStatus(JsonDTO.SUCCESS).setMsg("商品下架");
     }
 
-    @DeleteMapping("/deleteSpu/{id}")
-    public Result logicDeleteSpu(@PathVariable(name = "id") Long id) {
-        spuService.logicDeleteSpu(id);
-        return new Result(true, StatusCode.OK, "逻辑删除成功");
+    @PostMapping("/deleteSpu")
+    public JsonDTO logicDeleteSpu(@RequestParam List<Long> ids, @RequestParam int deleteStatus) {
+        spuService.logicDeleteSpu(ids, deleteStatus);
+        return JsonDTO.createInstance().setStatus(JsonDTO.SUCCESS).setMsg("逻辑删除商品");
     }
 
     @PutMapping("/restore/{id}")
