@@ -8,6 +8,7 @@ import com.suqiu.order.service.OrderItemService;
 import com.suqiu.order.service.OrderService;
 import com.github.pagehelper.PageInfo;
 import entity.*;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -66,6 +67,47 @@ public class OrderController {
         PageInfo<Order> pageInfo = orderService.findPage(order, page, size);
         return new Result(true, StatusCode.OK, "查询成功", pageInfo);
     }
+
+    /**
+     * 订单列表 @zero
+     * @param queryParam 查询条件
+     * @param pageSize
+     * @param pageNum
+     * @return
+     */
+    @RequestMapping(value = "/list", method = RequestMethod.GET)
+    public CommonResult<CommonPage<OmsOrder>> list(OmsOrderQueryParam queryParam,
+                                                   @RequestParam(value = "pageSize", defaultValue = "5") Integer pageSize,
+                                                   @RequestParam(value = "pageNum", defaultValue = "1") Integer pageNum) {
+
+        Order order = new Order();
+        order.setId(queryParam.getOrderSn());//订单号
+        order.setReceiverMobile(queryParam.getReceiverKeyword());//手机号
+        PageInfo<Order> pageInfo = orderService.findPage(order, pageNum, pageSize);
+        List<Order> list = pageInfo.getList();
+        if (CommonUtil.isNull(list)) {
+            return CommonResult.failed("查无记录");
+        }
+
+        List<OmsOrder> orderList = new ArrayList<>();
+        list.forEach(t -> {
+            OmsOrder omsOrder = new OmsOrder();
+            omsOrder.setId(Long.parseLong(t.getId()));
+            omsOrder.setOrderSn(t.getId());
+            omsOrder.setCreateTime(t.getCreateTime());
+            omsOrder.setMemberUsername(t.getUsername());
+            omsOrder.setTotalAmount(new BigDecimal(t.getTotalMoney()));
+            omsOrder.setPayAmount(new BigDecimal(t.getPayMoney()));
+            omsOrder.setPayType(1);
+            omsOrder.setSourceType(1);
+            omsOrder.setStatus(Integer.parseInt(t.getOrderStatus()));
+
+            orderList.add(omsOrder);
+        });
+
+        return CommonResult.success(CommonPage.restPage(orderList));
+    }
+
 
     /***
      * Order分页搜索实现
